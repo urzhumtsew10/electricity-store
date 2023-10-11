@@ -1,0 +1,30 @@
+.brandsBlock {
+  margin-top: 60px;
+  position: relative;
+}
+.brandsBlock__brands {
+  margin-top: 55px;
+  display: grid;
+  justify-items: center;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+}
+.brandsBlock__brandCard {
+  width: 188px;
+  height: 100px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.brandCard__img {
+  width: 90px;
+  height: 90px;
+}
+.brandsBlock__title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 28px;
+  font-weight: 600;
+}

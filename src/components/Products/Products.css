@@ -1,0 +1,39 @@
+.contentProducts {
+  margin-top: 40px;
+  position: relative;
+}
+.contentProducts__title {
+  font-size: 28px;
+  font-weight: 600;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.contentProducts__products {
+  display: grid;
+  justify-items: center;
+  grid-template-columns: repeat(5, 230px);
+  gap: 30px;
+  row-gap: 15px;
+  margin-top: 55px;
+}
+.contentProducts__btn {
+  margin-top: 37px;
+  width: 100%;
+  height: 50px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.contentProducts__btn:hover {
+  cursor: pointer;
+  transition: 0.4s;
+  color: #0d63f3;
+  background-color: #deeaff;
+}

@@ -1,0 +1,39 @@
+.contentCategory {
+  position: relative;
+  margin-top: 40px;
+}
+.contentCategories__title {
+  font-size: 28px;
+  font-weight: 600;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.contentCategories__btn {
+  margin-top: 37px;
+  width: 100%;
+  height: 50px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border: none;
+
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.contentCategories__btn:hover {
+  cursor: pointer;
+  transition: 0.4s;
+  color: #0d63f3;
+  background-color: #deeaff;
+}
+.contentCategories__categories {
+  margin-top: 55px;
+  display: grid;
+  justify-items: center;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 29px;
+}
