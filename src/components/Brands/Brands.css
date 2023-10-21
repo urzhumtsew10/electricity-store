@@ -1,12 +1,15 @@
 .brandsBlock {
+  width: 85%;
   margin-top: 60px;
   position: relative;
+  display: grid;
 }
 .brandsBlock__brands {
   margin-top: 55px;
   display: grid;
   justify-items: center;
-  grid-template-columns: repeat(6, 1fr);
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, 188px);
   gap: 20px;
 }
 .brandsBlock__brandCard {
@@ -27,4 +30,12 @@
   left: 0;
   font-size: 28px;
   font-weight: 600;
+}
+@media (max-width: 767px) {
+  .brandsBlock__brands {
+    grid-template-columns: repeat(auto-fit, 120px);
+  }
+  .brandsBlock__brandCard {
+    width: 125px;
+  }
 }

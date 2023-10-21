@@ -1,55 +1,104 @@
-import { Email } from "../Authorization/Email";
-import { Password } from "../Authorization/Password";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm, FormProvider, useController } from "react-hook-form";
 import axios from "axios";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setEmailErrorText } from "../../../store/errors";
+import {
+  resetValues,
+  setAutorization,
+  setEmailError,
+  setPasswordError,
+} from "../../../store/form";
+import { setActiveAuthModal } from "../../../store/modals";
+import { useCookies } from "react-cookie";
+import { generateMenuList } from "../../../store/menuAccount";
 
-export const AuthorizationForm = ({ activeAuth, activeAuthorizationForm }) => {
-  const errorEmailText = useSelector((state) => state.errors.errorEmailText);
+export const AuthorizationForm = ({
+  activeAuth,
+  activeAuthorizationForm,
+  formAuthMethods,
+}) => {
+  const { handleSubmit, register, reset } = formAuthMethods;
   const dispatch = useDispatch();
 
-  const userAuthSchema = yup.object().shape({
-    email: yup.string().email().required(),
-    password: yup.string().min(8).required(),
-  });
+  const [cookies, setCookie] = useCookies(["token"]);
 
-  const formAuthMethods = useForm({
-    resolver: yupResolver(userAuthSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
+  const isActiveEmailError = useSelector(
+    (state) => state.formRegister.emailError.active
+  );
+  const errorEmailText = useSelector(
+    (state) => state.formRegister.emailError.value
+  );
 
-  const { handleSubmit } = formAuthMethods;
-
-  const [serverCheck, setServerCheck] = useState(false);
+  const isActivePasswordError = useSelector(
+    (state) => state.formRegister.passwordError.active
+  );
+  const errorPasswordText = useSelector(
+    (state) => state.formRegister.passwordError.value
+  );
 
   const tryAuthorizationUser = async (data) => {
     const response = await axios.post("http://localhost:3030/user/auth", data);
-    setServerCheck(response);
+
+    if (!response.data.email) {
+      dispatch(setEmailError({ value: "Email isn't used" }));
+    } else {
+      dispatch(setEmailError({ value: "" }));
+    }
+    if (!response.data.password) {
+      dispatch(setPasswordError({ value: "Password is wrong" }));
+    } else {
+      dispatch(setPasswordError({ value: "" }));
+    }
+
+    if (response.data.email && response.data.password) {
+      setCookie("token", response.data.userData.token, { maxAge: 8 * 60 * 60 });
+      localStorage.setItem(
+        "userData",
+        JSON.stringify({
+          name: response.data.userData.name,
+          email: response.data.userData.email,
+          role: response.data.userData.role,
+        })
+      );
+
+      dispatch(setActiveAuthModal({ isActive: false }));
+      dispatch(setAutorization({ isAuthorization: true }));
+      document.body.style.overflow = "inherit";
+      reset();
+    }
   };
+
+  const emailErrorClass = isActiveEmailError ? "inputError" : "";
+  const passwordErrorClass = isActivePasswordError ? "inputError" : "";
 
   return (
     <div className={`authorization ${activeAuth}`}>
       <h2 className="contentAuthorization__title">Access by email</h2>
-      <FormProvider {...formAuthMethods}>
-        <form
-          onSubmit={handleSubmit(tryAuthorizationUser)}
-          className="contentAuthorization__authForm"
-          action="submit"
-        >
-          <Email serverCheck={serverCheck} />
-          <Password serverCheck={serverCheck} />
-          <button type="submit" className="contentAuthorization__logIn">
-            Log in
-          </button>
-        </form>
-      </FormProvider>
+      <form
+        onSubmit={handleSubmit(tryAuthorizationUser)}
+        className="contentAuthorization__authForm"
+        action="submit"
+      >
+        <div className="authForm__inputShell">
+          {<p className="textError">{errorEmailText}</p>}
+          <input
+            {...register("email")}
+            className={`authForm__input ${emailErrorClass}`}
+            type="text"
+            placeholder="Email"
+          />
+        </div>
+        <div className="authForm__inputShell">
+          {<p className="textError">{errorPasswordText}</p>}
+          <input
+            {...register("password")}
+            className={`authForm__input ${passwordErrorClass}`}
+            type="password"
+            placeholder="Password"
+          />
+        </div>
+        <button type="submit" className="contentAuthorization__logIn">
+          Log in
+        </button>
+      </form>
       <p
         onClick={() => activeAuthorizationForm()}
         className="contentAuthorization__signOn"

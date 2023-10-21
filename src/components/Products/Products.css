@@ -1,6 +1,8 @@
 .contentProducts {
+  width: 85%;
   margin-top: 40px;
   position: relative;
+  display: grid;
 }
 .contentProducts__title {
   font-size: 28px;
@@ -10,9 +12,11 @@
   left: 0;
 }
 .contentProducts__products {
+  width: 100%;
   display: grid;
   justify-items: center;
-  grid-template-columns: repeat(5, 230px);
+  grid-template-columns: repeat(auto-fit, 230px);
+  justify-content: center;
   gap: 30px;
   row-gap: 15px;
   margin-top: 55px;

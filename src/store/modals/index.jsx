@@ -4,12 +4,24 @@ const initialState = {
   authActive: false,
   electedActive: false,
   cartActive: false,
+  userOffice: false,
+  authForm: true,
+  registerForm: false,
 };
 
 const modalsSlice = createSlice({
   name: "modals",
   initialState,
   reducers: {
+    setActiveUserOffice: (state, action) => {
+      return { ...state, userOffice: action.payload.isActive };
+    },
+    setActiveAuthForm: (state, action) => {
+      return { ...state, authForm: action.payload.isActive };
+    },
+    setActiveRegisterForm: (state, action) => {
+      return { ...state, registerForm: action.payload.isActive };
+    },
     setActiveAuthModal: (state, action) => {
       return { ...state, authActive: action.payload.isActive };
     },
@@ -22,7 +34,13 @@ const modalsSlice = createSlice({
   },
 });
 
-export const { setActiveAuthModal, setActiveElectedModal, setActiveCartModal } =
-  modalsSlice.actions;
+export const {
+  setActiveRegisterForm,
+  setActiveAuthForm,
+  setActiveUserOffice,
+  setActiveAuthModal,
+  setActiveElectedModal,
+  setActiveCartModal,
+} = modalsSlice.actions;
 
 export default modalsSlice.reducer;

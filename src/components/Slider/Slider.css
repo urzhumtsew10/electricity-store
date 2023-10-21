@@ -49,3 +49,21 @@
   width: 1230px;
   border-radius: 8px;
 }
+@media (max-width: 1530px) {
+  .contentPage__slider {
+    width: calc(750px + (1355 - 750) * ((100vw - 767px) / (1530 - 767)));
+    height: calc(200px + (415 - 200) * ((100vw - 767px) / (1530 - 767)));
+  }
+  .slider__content {
+    width: calc(700px + (1230 - 700) * ((100vw - 767px) / (1530 - 767)));
+    height: calc(200px + (410 - 200) * ((100vw - 767px) / (1530 - 767)));
+  }
+  .content__images {
+    width: calc(630px + (1230 - 630) * ((100vw - 767px) / (1530 - 767)));
+  }
+}
+@media (max-width: 767px) {
+  .contentPage__slider {
+    display: none;
+  }
+}

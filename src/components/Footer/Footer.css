@@ -67,3 +67,68 @@
   bottom: 40px;
   right: 380px;
 }
+@media (max-width: 1530px) {
+  .coloumn_01 {
+    margin-left: calc(45px + (140 - 45) * ((100vw - 767px) / (1530 - 767)));
+  }
+  .coloumn_02,
+  .coloumn_03 {
+    margin-left: calc(45px + (100 - 45) * ((100vw - 767px) / (1530 - 767)));
+  }
+  .coloumn_04 {
+    margin-left: calc(45px + (250 - 45) * ((100vw - 767px) / (1530 - 767)));
+  }
+  .col__text {
+    margin-top: calc(15px + (20 - 15) * ((100vw - 767px) / (1530 - 767)));
+    font-size: calc(14px + (16 - 14) * ((100vw - 767px) / (1530 - 767)));
+  }
+  .socialNetworks__img {
+    width: calc(35px + (42 - 35) * ((100vw - 767px) / (1530 - 767)));
+    height: calc(35px + (42 - 35) * ((100vw - 767px) / (1530 - 767)));
+    margin-right: calc(20px + (25 - 20) * ((100vw - 767px) / (1530 - 767)));
+  }
+  .footer__horizontalLine {
+    left: calc(60px + (140 - 60) * ((100vw - 767px) / (1530 - 767)));
+    width: calc(85% + (80 - 85) * ((100vw - 767px) / (1530 - 767)));
+  }
+  .footer__name {
+    left: calc(125px + (140 - 125) * ((100vw - 767px) / (1530 - 767)));
+  }
+  .footer__text {
+    right: calc(125px + (380 - 125) * ((100vw - 767px) / (1530 - 767)));
+  }
+}
+@media (max-width: 767px) {
+  .footer {
+    flex-direction: column;
+    height: calc(760px + (820 - 760) * ((100vw - 320px) / (767 - 320)));
+    padding-top: calc(30px + (60 - 30) * ((100vw - 320px) / (767 - 320)));
+  }
+  .coloumn_03 {
+    display: none;
+  }
+  .coloumn_01,
+  .coloumn_02,
+  .coloumn_04 {
+    margin: 0 0 40px 20px;
+  }
+  .col__socialNetworks {
+    margin-top: 25px;
+  }
+  .socialNetworks__img {
+    width: calc(45px + (35 - 45) * ((100vw - 320px) / (767 - 320)));
+    height: calc(45px + (35 - 45) * ((100vw - 320px) / (767 - 320)));
+    margin-right: calc(30px + (20 - 30) * ((100vw - 320px) / (767 - 320)));
+  }
+  .footer__horizontalLine {
+    margin-top: 15px;
+    width: calc(93% + (85 - 93) * ((100vw - 320px) / (767 - 320)));
+    left: calc(10px + (30 - 10) * ((100vw - 320px) / (767 - 320)));
+  }
+  .footer__text {
+    display: none;
+  }
+  .footer__name {
+    left: calc(95px + (125 - 95) * ((100vw - 320px) / (767 - 320)));
+  }
+}

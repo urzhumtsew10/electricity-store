@@ -1,0 +1,44 @@
+.contentProfile__userInfo {
+  margin: 10px 0 0 20px;
+  display: flex;
+}
+.userInfo__avatar {
+  margin: 10px 15px 0 0;
+  width: 84px;
+  height: 84px;
+}
+.userInfo__view {
+  margin-top: 40px;
+}
+.userInfo__name,
+.userInfo__email {
+  font-size: 13px;
+  font-weight: 400;
+  color: #6c757d;
+}
+.userInfo__span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #000;
+}
+@media (max-width: 767px) {
+  .contentProfile__userInfo {
+    flex-direction: column;
+    margin-left: calc(15px + (20 - 10) * ((100vw - 320px) / (767 - 320)));
+  }
+  .userInfo__avatar {
+    margin-right: calc(10px + (15 - 10) * ((100vw - 320px) / (767 - 320)));
+    width: calc(65px + (84 - 65) * ((100vw - 320px) / (767 - 320)));
+    height: calc(65px + (84 - 65) * ((100vw - 320px) / (767 - 320)));
+  }
+  .userInfo__name,
+  .userInfo__email {
+    font-size: calc(12px + (13 - 12) * ((100vw - 320px) / (767 - 320)));
+  }
+  .userInfo__span {
+    font-size: calc(13px + (14 - 13) * ((100vw - 320px) / (767 - 320)));
+  }
+  .userInfo__view {
+    margin-top: 5px;
+  }
+}

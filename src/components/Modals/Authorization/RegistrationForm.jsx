@@ -1,38 +1,53 @@
-import { Email } from "../Authorization/Email";
-import { Password } from "../Authorization/Password";
-import { Name } from "../Authorization/Name";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm, FormProvider } from "react-hook-form";
+import { Email } from "./Email";
+import { Password } from "./Password";
+import { Name } from "./Name";
+import { FormProvider } from "react-hook-form";
 import axios from "axios";
-import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setAutorization, setEmailError } from "../../../store/form";
+import {
+  setActiveAuthModal,
+  setActiveRegisterForm,
+} from "../../../store/modals";
+import { useCookies } from "react-cookie";
 
-const userRegisterSchema = yup.object().shape({
-  email: yup.string().email().required(),
-  password: yup.string().min(8).required(),
-  name: yup.string().min(4),
-});
-
-export const RegistrationForm = ({ activeReg, activeRegistrationForm }) => {
-  const formRegisterMethods = useForm({
-    resolver: yupResolver(userRegisterSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-    },
-  });
-
-  const { handleSubmit } = formRegisterMethods;
-
-  const [serverCheck, setServerCheck] = useState(false);
+export const RegistrationForm = ({
+  activeReg,
+  activeRegistrationForm,
+  formRegisterMethods,
+}) => {
+  const dispatch = useDispatch();
+  const { handleSubmit, reset } = formRegisterMethods;
+  const [cookies, setCookie] = useCookies(["token"]);
 
   const tryRegisterUser = async (data) => {
     const response = await axios.post(
       "http://localhost:3030/user/register",
       data
     );
-    setServerCheck(response);
+    if (!response.data.email) {
+      dispatch(setEmailError({ value: "Email is used" }));
+    } else {
+      dispatch(setEmailError({ value: "" }));
+    }
+
+    if (response.data.email && response.data.password) {
+      setCookie("token", response.data.token, { maxAge: 8 * 60 * 60 });
+      localStorage.setItem(
+        "userData",
+        JSON.stringify({
+          name: response.data.name,
+          email: response.data.email,
+          role: response.data.role,
+        })
+      );
+
+      dispatch(setActiveRegisterForm({ isActive: false }));
+      dispatch(setActiveAuthModal({ isActive: false }));
+      dispatch(setAutorization({ isAuthorization: true }));
+      document.body.style.overflow = "inherit";
+      reset();
+    }
   };
 
   return (
@@ -45,7 +60,7 @@ export const RegistrationForm = ({ activeReg, activeRegistrationForm }) => {
           action="submit"
         >
           <Name />
-          <Email serverCheck={serverCheck} />
+          <Email />
           <Password />
           <button type="submit" className="contentAuthorization__logIn">
             Sign on

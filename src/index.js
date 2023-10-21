@@ -6,11 +6,13 @@ import { configureStore } from "@reduxjs/toolkit";
 import productsReducer from "./store/products";
 import brandsReducer from "./store/brands";
 import modalReducer from "./store/modals";
-import errorReducer from "./store/errors";
+import formRegisterReducer from "./store/form";
+import menuAccountReducer from "./store/menuAccount";
 import { api } from "./api";
 import { Provider } from "react-redux";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+import { CookiesProvider } from "react-cookie";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -19,7 +21,8 @@ const store = configureStore({
     products: productsReducer,
     brands: brandsReducer,
     modals: modalReducer,
-    errors: errorReducer,
+    formRegister: formRegisterReducer,
+    menuAccount: menuAccountReducer,
     [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>
@@ -28,9 +31,11 @@ const store = configureStore({
 
 root.render(
   <BrowserRouter>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <CookiesProvider defaultSetOptions={{ path: "/" }}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </CookiesProvider>
   </BrowserRouter>
 );
 

@@ -1,22 +1,25 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import arrow from "../../img/arrow.svg";
 
 import "./Slider.css";
 import { SliderImg } from "./SliderImg";
 
 export const Slider = ({ content }) => {
-  const WIDTH_CONTENT = 0;
+  const refSlider = useRef(0);
+  const [offSet, setOffSet] = useState(0);
 
-  const [offSet, setOffSet] = useState(WIDTH_CONTENT);
+  const WINDOW_WIDTH = window.screen.width;
 
   const [classArrowNext, setClassArrowNext] = useState("active-arrow");
   const [classArrowPrev, setClassArrowPrev] = useState("");
 
   const nextContent = () => {
-    if (offSet > -3681) {
-      setOffSet(offSet - 1227);
+    const widthImg = refSlider.current.getBoundingClientRect().width;
+    const width = WINDOW_WIDTH >= 1500 ? widthImg - 3 : widthImg + 3;
+    if (offSet > -(width * 3)) {
+      setOffSet(offSet - width);
     }
-    if (offSet === -2454) {
+    if (offSet === -(width * 2)) {
       setClassArrowNext("");
     }
     if (offSet === 0) {
@@ -25,13 +28,16 @@ export const Slider = ({ content }) => {
   };
 
   const prevContent = () => {
-    if (offSet <= -1227) {
-      setOffSet(offSet + 1227);
+    const widthImg = refSlider.current.getBoundingClientRect().width;
+    const width = WINDOW_WIDTH >= 1530 ? widthImg - 3 : widthImg + 3;
+
+    if (offSet <= -width) {
+      setOffSet(offSet + width);
     }
-    if (offSet === -3681) {
+    if (offSet === -(width * 3)) {
       setClassArrowNext("active-arrow");
     }
-    if (offSet === -1227) {
+    if (offSet === -width) {
       setClassArrowPrev("");
     }
   };
@@ -39,13 +45,14 @@ export const Slider = ({ content }) => {
   return (
     <div className="contentPage__slider">
       <div
-        onClick={() => prevContent()}
+        onClick={prevContent}
         className={`slider__prevArrow ${classArrowPrev}`}
       >
         <img className="prevArrow__img" src={arrow} alt="arrow" />
       </div>
       <div className="slider__content">
         <div
+          ref={refSlider}
           className="content__images"
           style={{ transform: `translateX(${offSet}px)` }}
         >
@@ -55,7 +62,7 @@ export const Slider = ({ content }) => {
         </div>
       </div>
       <div
-        onClick={() => nextContent()}
+        onClick={nextContent}
         className={`slider__nextArrow ${classArrowNext}`}
       >
         <img className="nextArrow__img" src={arrow} alt="arrow" />

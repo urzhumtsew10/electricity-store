@@ -1,8 +1,17 @@
+import { useEffect } from "react";
 import { useController } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { setEmailError } from "../../../store/form";
 
-export const Email = ({ serverCheck }) => {
+export const Email = () => {
   const { field, fieldState } = useController({ name: "email" });
   const { error } = fieldState;
+
+  const isActiveError = useSelector(
+    (state) => state.formRegister.emailError.active
+  );
+  const errorText = useSelector((state) => state.formRegister.emailError.value);
+  const dispatch = useDispatch();
 
   const getEmailTypeError = (error) => {
     if (error?.type) {
@@ -14,19 +23,18 @@ export const Email = ({ serverCheck }) => {
           return "Email is required";
       }
     }
-    if (serverCheck) {
-      if (!serverCheck.data.email) {
-        return "Email is used or isn't used";
-      }
-    }
     return "";
   };
 
-  const errorClass = serverCheck && !serverCheck.data.email ? "inputError" : "";
+  useEffect(() => {
+    dispatch(setEmailError({ value: getEmailTypeError(error) }));
+  }, [error]);
+
+  const errorClass = isActiveError ? "inputError" : "";
 
   return (
     <div className="authForm__inputShell">
-      {<p className="textError">{getEmailTypeError(error)}</p>}
+      {<p className="textError">{errorText}</p>}
       <input
         {...field}
         className={`authForm__input ${errorClass}`}
