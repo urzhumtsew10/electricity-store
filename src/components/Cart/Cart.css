@@ -1,9 +1,32 @@
 .cartContent {
   position: relative;
+  padding: 0 25px 360px 25px;
   width: 100%;
-  height: 70vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.cartContent__arrow {
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  left: 30px;
+  width: 40px;
+  height: 40px;
+}
+.cartContent__text {
+  cursor: pointer;
+  position: absolute;
+  top: 25px;
+  left: 63px;
+  font-size: 16px;
+  font-weight: 400;
+}
+.cartContent__arrow:hover + .cartContent__text {
+  text-decoration: underline;
+}
+.cartContent__text:hover {
+  text-decoration: underline;
 }
 .cartContent__title {
   position: absolute;
@@ -11,4 +34,153 @@
   left: 20px;
   font-size: 28px;
   font-weight: 600;
+}
+.cartContent__cartInfo {
+  margin-top: 75px;
+  position: relative;
+  width: 100%;
+  height: 55px;
+  border-bottom: 1px solid #cdcdcd;
+  display: flex;
+  align-items: center;
+}
+.cartInfo__priceColumn,
+.cartInfo__productColumn,
+.cartInfo__quantityColumn,
+.cartInfo__totalColumn {
+  position: absolute;
+  font-size: 18px;
+  font-weight: 600;
+}
+.cartInfo__productColumn {
+  left: 85px;
+}
+.cartInfo__totalColumn {
+  right: 70px;
+}
+.cartInfo__quantityColumn {
+  right: 215px;
+}
+.cartInfo__priceColumn {
+  right: 350px;
+}
+.cartContent__products {
+  margin-top: 15px;
+  width: 100%;
+  height: 450px;
+  overflow-y: scroll;
+}
+.products__cartProduct {
+  width: 100%;
+  height: 100px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.cartProduct__imgDelete {
+  cursor: pointer;
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  left: 15px;
+}
+.cartProduct__img {
+  height: 80px;
+  position: absolute;
+  left: 80px;
+}
+.cartProduct__title {
+  position: absolute;
+  left: 220px;
+  font-size: 16px;
+  font-weight: 400;
+}
+.cartProduct__price {
+  position: absolute;
+  right: 350px;
+  font-size: 16px;
+  font-weight: 400;
+}
+.cartProduct__productQuantity {
+  position: absolute;
+  padding: 0 15px 0 15px;
+  right: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 120px;
+  height: 45px;
+  background-color: #fff;
+  border-radius: 8px;
+}
+.productQuantity__increment,
+.productQuantity__decrement {
+  cursor: pointer;
+  color: #33a0ff;
+}
+.productQuantity__decrement {
+  font-size: 20px;
+}
+.productQuantity__increment {
+  font-size: 19px;
+}
+.productQuantity__counter {
+  font-size: 16px;
+  font-weight: 400;
+}
+.cartProduct__total {
+  font-size: 16px;
+  font-weight: 400;
+  position: absolute;
+  right: 65px;
+}
+.cartContent__considerTotalPrice {
+  position: absolute;
+  right: 85px;
+  bottom: 50px;
+  width: 377px;
+  display: flex;
+  flex-direction: column;
+}
+.considerTotalPrice__subtotal,
+.considerTotalPrice__shipping,
+.considerTotalPrice__total {
+  display: flex;
+  justify-content: space-between;
+}
+.considerTotalPrice__shipping {
+  margin-top: 23px;
+}
+.considerTotalPrice__total {
+  margin-top: 26px;
+  padding-top: 26px;
+  border-top: 1px solid #b8b8b8;
+}
+.subtotal__text,
+.subtotal__total,
+.shipping__text,
+.shipping__total {
+  font-size: 16px;
+  font-weight: 400;
+}
+.total__text,
+.total__bill {
+  font-size: 27px;
+  font-weight: 500;
+}
+.considerTotalPrice__btn {
+  margin-top: 24px;
+  width: 100%;
+  height: 60px;
+  background-color: #33a0ff;
+
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+}
+.considerTotalPrice__btn:hover {
+  transition: 0.3s;
+  color: #33a0ff;
+  border: 1px solid #33a0ff;
+  background-color: transparent;
 }

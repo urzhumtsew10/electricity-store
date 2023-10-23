@@ -14,6 +14,7 @@ export const Products = () => {
             .map(({ category, id, brand, color, price, img, description }) => (
               <ProductCard
                 key={id}
+                id={id}
                 category={category}
                 brand={brand}
                 color={color}

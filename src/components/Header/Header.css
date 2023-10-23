@@ -235,6 +235,12 @@
   position: absolute;
   bottom: 9px;
 }
+.header__viewPages {
+  margin-top: 20px;
+  display: grid;
+  justify-items: center;
+  grid-template-columns: repeat(2, 60px);
+}
 @media (max-width: 1530px) {
   .header__logo {
     margin-left: calc(40px + (140 - 40) * ((100vw - 767px) / (1530 - 767)));

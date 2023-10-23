@@ -8,6 +8,7 @@ import brandsReducer from "./store/brands";
 import modalReducer from "./store/modals";
 import formRegisterReducer from "./store/form";
 import menuAccountReducer from "./store/menuAccount";
+import cartReducer from "./store/cart";
 import { api } from "./api";
 import { Provider } from "react-redux";
 import reportWebVitals from "./reportWebVitals";
@@ -23,6 +24,7 @@ const store = configureStore({
     modals: modalReducer,
     formRegister: formRegisterReducer,
     menuAccount: menuAccountReducer,
+    cart: cartReducer,
     [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>

@@ -43,7 +43,13 @@ export const Header = () => {
     }
   }, [cookies.token]);
 
+  const closeMobileMenu = () => {
+    setActiveMobileMenu(false);
+    document.body.style.overflow = "inherit";
+  };
+
   const openElectedPage = () => {
+    closeMobileMenu();
     navigate("/elected");
   };
 
@@ -52,6 +58,7 @@ export const Header = () => {
   };
 
   const openCartPage = () => {
+    closeMobileMenu();
     navigate("/cart");
   };
 
@@ -65,11 +72,6 @@ export const Header = () => {
   const openMobileMenu = () => {
     setActiveMobileMenu(true);
     document.body.style.overflow = "hidden";
-  };
-
-  const closeMobileMenu = () => {
-    setActiveMobileMenu(false);
-    document.body.style.overflow = "inherit";
   };
 
   return (
@@ -164,6 +166,21 @@ export const Header = () => {
               alt="icon"
             />
           )}
+          <div className="header__viewPages">
+            <div
+              onClick={openElectedPage}
+              className="header__electedBtn header-btn"
+            >
+              <img
+                className="electedBtn__img header-icon"
+                src={heart}
+                alt="heart"
+              />
+            </div>
+            <div onClick={openCartPage} className="header__cartBtn header-btn">
+              <img className="cartBtn__img header-icon" src={cart} alt="cart" />
+            </div>
+          </div>
           <div className="horizontalLine"></div>
           <div className="headerMobile__categoriesBtn section-box">
             <p className="categoriesBtn__title section-title">Categories</p>
