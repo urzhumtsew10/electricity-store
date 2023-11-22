@@ -1,0 +1,110 @@
+.contentPage__categoryPage {
+  padding: 0 160px 0 160px;
+  margin-top: 80px;
+  width: 100%;
+  display: flex;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+.categoryPage__productsFiltersBlock {
+  margin-left: 30px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.categoryPage__filterBox {
+  padding: 10px;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  width: 230px;
+  height: 100vh;
+  background-color: #fff;
+  border-radius: 8px;
+}
+.filterBox__searchInputDiv {
+  padding: 0 30px 0 10px;
+  width: 100%;
+  height: 35px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  border: 1px solid #c6c9d0;
+  margin-bottom: 30px;
+}
+.searchInputDiv__img {
+  cursor: pointer;
+  filter: grayscale(100%) invert(50%);
+  width: 24px;
+  height: 24px;
+}
+.searchInputDiv__input {
+  width: 160px;
+}
+.filterBox__nameFilter {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.filterForm__inputDiv {
+  margin-bottom: 17px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.inputDiv__label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1e1e1e;
+  margin-left: 10px;
+}
+.inputDiv__counter {
+  position: absolute;
+  right: 5px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #6c757d;
+}
+.categoryPage__optionalFilter {
+  background-color: #6c757d;
+  height: 70px;
+}
+.categoryPage__products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 220px);
+  justify-content: center;
+  gap: 20px;
+}
+.filterBox__priceSlider {
+  width: 100%;
+  height: 5px;
+  background-color: #d2e0f9;
+  border-radius: 10px;
+}
+.filterBox__priceSlider .thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #0d63f3;
+  top: -5px;
+}
+.filterBox__infoPriceRange {
+  margin-right: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+.infoPriceRange__line {
+  font-size: 20px;
+}
+.infoPriceRange__minValue,
+.infoPriceRange__maxValue {
+  width: 60px;
+  padding: 5px 3px 5px 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 500;
+}

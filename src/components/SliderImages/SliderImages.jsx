@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import arrow from "../../img/arrow.svg";
 
-import "./Slider.css";
+import "./SliderImages.css";
 import { SliderImg } from "./SliderImg";
 
-export const Slider = ({ content }) => {
+export const SliderImages = ({ content }) => {
   const refSlider = useRef(0);
   const [offSet, setOffSet] = useState(0);
 

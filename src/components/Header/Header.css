@@ -33,6 +33,11 @@
   background: linear-gradient(270deg, #4d5ef6 0%, #f64d4d 100%);
   border-radius: 8px;
 }
+.header__catalog:hover + .header__catalogBlock {
+  z-index: 1;
+  opacity: 1;
+}
+
 .catalog__text {
   color: #fff;
   font-size: 18px;
@@ -112,6 +117,10 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
+}
+.header__authIcon:hover {
+  transition: 0.3s;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
 }
 .header__authorizationBtn:hover {
   transition: 0.3s;

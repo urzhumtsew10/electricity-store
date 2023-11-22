@@ -29,6 +29,8 @@ export const CartProduct = ({
     dispatch(incrementQuantity({ id: id }));
   };
 
+  const productImg = img.length > 50 ? img : require(`../../img/${img}`);
+
   return (
     <div className="products__cartProduct">
       <img
@@ -38,11 +40,7 @@ export const CartProduct = ({
         alt="cross"
       />
 
-      <img
-        className="cartProduct__img"
-        src={require(`../../img/${img}`)}
-        alt="product"
-      />
+      <img className="cartProduct__img" src={productImg} alt="product" />
       <p className="cartProduct__title">
         {brand} {category} {color}
       </p>

@@ -17,6 +17,8 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { generateMenuList } from "../../store/menuAccount";
+import { Catalog } from "../Catalog/Catalog";
+import { setCatalogFilter } from "../../store/catalog";
 
 export const Header = () => {
   const dispatch = useDispatch();
@@ -37,6 +39,13 @@ export const Header = () => {
     document.body.style.overflow = "hidden";
   };
 
+  const openAuthModal = () => {
+    dispatch(setActiveAuthModal({ isActive: true }));
+    dispatch(setActiveAuthForm({ isActive: true }));
+    dispatch(setActiveUserOffice({ isActive: false }));
+    document.body.style.overflow = "hidden";
+  };
+
   useEffect(() => {
     if (!cookies.token) {
       localStorage.removeItem("userData");
@@ -49,24 +58,22 @@ export const Header = () => {
   };
 
   const openElectedPage = () => {
-    closeMobileMenu();
-    navigate("/elected");
+    if (cookies.token) {
+      closeMobileMenu();
+      navigate("/elected");
+    } else {
+      openAuthModal();
+    }
   };
 
   const openHomePage = () => {
+    dispatch(setCatalogFilter({ category: "", brand: "" }));
     navigate("/");
   };
 
   const openCartPage = () => {
     closeMobileMenu();
     navigate("/cart");
-  };
-
-  const openAuthModal = () => {
-    dispatch(setActiveAuthModal({ isActive: true }));
-    dispatch(setActiveAuthForm({ isActive: true }));
-    dispatch(setActiveUserOffice({ isActive: false }));
-    document.body.style.overflow = "hidden";
   };
 
   const openMobileMenu = () => {
@@ -104,6 +111,7 @@ export const Header = () => {
           <img className="catalog__img header-icon" src={menu} alt="menu" />
           <p className="catalog__text">CATALOG</p>
         </div>
+        <Catalog />
         <div className="header__searchDiv">
           <input
             className="searchDiv__input"

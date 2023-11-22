@@ -1,4 +1,4 @@
-import { Slider } from "../Slider/Slider";
+import { SliderImages } from "../SliderImages/SliderImages";
 import { Products } from "../Products/Products";
 import { Categories } from "../Categories/Categories";
 import { Brands } from "../Brands/Brands";
@@ -10,7 +10,7 @@ import "../Main/reset.css";
 export const Main = () => {
   return (
     <>
-      <Slider
+      <SliderImages
         content={[
           { id: 1, img: banner_03 },
           { id: 2, img: banner_01 },
@@ -20,7 +20,7 @@ export const Main = () => {
       />
       <Categories />
       <Products />
-      <Slider
+      <SliderImages
         content={[
           { id: 5, img: banner_02 },
           { id: 6, img: banner_02 },

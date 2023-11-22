@@ -1,0 +1,192 @@
+.contentEditing {
+  position: relative;
+}
+.contentEditing__editMenu {
+  width: 100%;
+  height: 25px;
+  border-radius: 10px;
+  position: absolute;
+  left: 0;
+  bottom: 15px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+}
+.editMenu__menuButton {
+  width: 100px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 10px;
+}
+.editMenu__menuButton:hover {
+  transition: 0.3s;
+  border: 1px solid #2f80ed;
+  color: #2f80ed;
+}
+.editMenu__menuButton.active {
+  background-color: #2f81ed3a;
+  color: #2f80ed;
+}
+.formEditProduct__input {
+  padding-left: 10px;
+  margin-bottom: 5px;
+  width: 100%;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid #bebbc2;
+}
+.formEditProduct__input:focus {
+  border: 1px solid #2f80ed;
+  color: #2265bc;
+}
+.contentEditing__formEditProduct {
+  position: absolute;
+  top: 15px;
+  left: 10px;
+  height: 360px;
+  width: 97%;
+  overflow-y: scroll;
+}
+.formEditProduct__imgPreview {
+  position: relative;
+  padding: 10px;
+  max-width: 210px;
+}
+.imgPreview__img {
+  height: 180px;
+  max-width: 210px;
+}
+.formEditProduct__inputFile {
+  display: none;
+}
+.formEditProduct__buttonBox {
+  display: flex;
+  align-items: center;
+}
+.formEditProduct__buttonSubmit,
+.formEditProduct__downloadImg {
+  width: 95px;
+  height: 40px;
+  background-color: #2f80ed;
+  border-radius: 8px;
+
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+}
+.formEditProduct__buttonSubmit:hover,
+.formEditProduct__downloadImg:hover {
+  transition: 0.3s;
+  background-color: #2265bc;
+}
+.formEditProduct__buttonSubmit {
+  margin-left: 10px;
+}
+.formEditProduct__boxInput {
+  position: relative;
+  width: 200px;
+}
+.formEditProduct__boxInput.active {
+  padding-top: 18px;
+}
+.boxInput__textError {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: red;
+  font-size: 12px;
+  font-weight: 500;
+}
+.contentEdit__productsEdit {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.productsEdit__input {
+  margin-top: 15px;
+  padding-left: 10px;
+  width: 200px;
+  height: 35px;
+  border: 1px solid #bebbc2;
+  border-radius: 8px;
+
+  font-size: 16px;
+  font-weight: 500;
+}
+.productsEdit__input:focus {
+  border: 1.6px solid #0d63f3;
+}
+.productsEdit__products {
+  overflow-y: scroll;
+  margin: 10px 0 0 0;
+  width: 100%;
+  height: 300px;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, 120px);
+  gap: 10px;
+}
+.products__editProduct {
+  overflow: hidden;
+  position: relative;
+  padding: 10px;
+  width: 120px;
+  height: 190px;
+  border: 1px solid #bebbc2;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.products__editProduct.hide {
+  display: none;
+}
+.editProduct__img {
+  max-width: 90px;
+  max-height: 100px;
+}
+.editProduct__infoProduct {
+  margin-top: 3px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+}
+.editProduct__price {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.editProduct__actions {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffffffbf;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.products__editProduct:hover .editProduct__actions {
+  transition: 0.3s;
+  top: 0;
+}
+.actions__actionDelete {
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  background-color: #0d61f3c4;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.iconDelete__img,
+.iconEdit__img {
+  width: 20px;
+  height: 20px;
+}

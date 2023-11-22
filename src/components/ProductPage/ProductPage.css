@@ -1,0 +1,113 @@
+.contentProductPage {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+.productContent__arrow {
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  left: 30px;
+  width: 40px;
+  height: 40px;
+}
+.productContent__text {
+  cursor: pointer;
+  position: absolute;
+  top: 25px;
+  left: 63px;
+  font-size: 16px;
+  font-weight: 400;
+}
+.productContent__arrow:hover + .productContent__text {
+  text-decoration: underline;
+}
+.productContent__text:hover {
+  text-decoration: underline;
+}
+
+.contentProductPage__viewProduct {
+  position: relative;
+  margin-top: 70px;
+  width: 100%;
+  display: flex;
+  padding: 0 0 0 200px;
+}
+.viewProduct__blockImg {
+  margin-right: 40px;
+  width: 546px;
+  height: 546px;
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+}
+.blockImg__iconHeart {
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  width: 27px;
+  height: 27px;
+  filter: invert(100%) grayscale(1);
+}
+.blockImg__iconHeart:hover {
+  transition: 0.3s;
+  transform: scale(1.07);
+  filter: invert(0%);
+}
+.blockImg__iconFullHeart {
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  width: 26px;
+  height: 26px;
+}
+.blockImg__productImg {
+  max-width: 500px;
+  max-height: 415px;
+}
+.productInfo__description {
+  font-size: 28px;
+  font-weight: 500;
+}
+.productInfo__color {
+  margin-top: 15px;
+  width: 46px;
+  height: 46px;
+  border-radius: 8px;
+}
+.productInfo__price {
+  margin-top: 25px;
+  font-size: 44px;
+  font-weight: 600;
+}
+.productInfo__actions {
+  position: absolute;
+  bottom: 45px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+.actions__checkoutBtn,
+.actions__addToCartBtn {
+  width: 230px;
+  height: 52px;
+  background-color: #0d63f3;
+  border-radius: 8px;
+
+  color: #fff;
+  font-size: 18px;
+  font-weight: 400;
+}
+.actions__checkoutBtn:hover,
+.actions__addToCartBtn:hover {
+  transition: 0.3s;
+  background-color: #fff;
+  color: #0d63f3;
+  border: 1px solid #0d63f3;
+}

@@ -2,7 +2,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
   reducerPath: "api",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3030" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://electricity-store-api.vercel.app",
+  }),
   endpoints: (builder) => ({
     getProducts: builder.query({
       query: () => ({ url: "/products" }),
@@ -13,4 +15,9 @@ export const api = createApi({
   }),
 });
 
-export const { useGetProductsQuery, useGetCategoriesQuery } = api;
+export const {
+  useGetProductsQuery,
+  useGetCategoriesQuery,
+  useLazyGetProductsQuery,
+  useLazyGetCategoriesQuery,
+} = api;

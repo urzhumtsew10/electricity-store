@@ -25,11 +25,9 @@ const menuAccountSlice = createSlice({
 
     generateMenuList: (state, action) => {
       if (action.payload.role === "user") {
-        console.log("user part");
         return { ...state, menuList: [...state.userItems] };
       }
       if (action.payload.role === "admin") {
-        console.log("admin part");
         return {
           ...state,
           menuList: [...state.userItems, ...state.adminItems],

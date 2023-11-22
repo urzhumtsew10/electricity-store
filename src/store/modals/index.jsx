@@ -1,18 +1,42 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  api: "https://electricity-store-api.vercel.app",
+  editList: [
+    { title: "Add New", isActive: false },
+    { title: "Search", isActive: true },
+  ],
   authActive: false,
   electedActive: false,
   cartActive: false,
   userOffice: false,
   authForm: true,
   registerForm: false,
+  errorModal: { text: "", isActive: false },
 };
 
 const modalsSlice = createSlice({
   name: "modals",
   initialState,
   reducers: {
+    setErrorModal: (state, action) => {
+      return {
+        ...state,
+        errorModal: {
+          text: action.payload.text,
+          isActive: action.payload.isActive,
+        },
+      };
+    },
+    setActiveEditList: (state, action) => {
+      const updateList = state.editList.map((item) => {
+        if (item.title === action.payload.title) {
+          item.isActive = true;
+        } else {
+          item.isActive = false;
+        }
+      });
+    },
     setActiveUserOffice: (state, action) => {
       return { ...state, userOffice: action.payload.isActive };
     },
@@ -35,6 +59,8 @@ const modalsSlice = createSlice({
 });
 
 export const {
+  setErrorModal,
+  setActiveEditList,
   setActiveRegisterForm,
   setActiveAuthForm,
   setActiveUserOffice,

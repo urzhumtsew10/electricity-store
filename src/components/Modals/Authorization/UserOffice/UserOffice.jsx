@@ -7,6 +7,7 @@ import { Editing } from "./Editing/Editing";
 import icon_exit from "../../../../svg/icon-exit.svg";
 import { useCookies } from "react-cookie";
 import { setActiveAuthModal } from "../../../../store/modals";
+import { setElectedProducts } from "../../../../store/elected";
 
 export const UserOffice = ({ activeOffice }) => {
   const dispatch = useDispatch();
@@ -17,6 +18,8 @@ export const UserOffice = ({ activeOffice }) => {
   const exitAccount = () => {
     removeCookie("token");
     dispatch(setActiveAuthModal({ isActive: false }));
+    dispatch(setElectedProducts({ value: null }));
+    document.body.style.overflow = "inherit";
   };
 
   return (

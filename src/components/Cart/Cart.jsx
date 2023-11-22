@@ -3,12 +3,9 @@ import "../Cart/Cart.css";
 import { CartProduct } from "./CartProduct";
 import { useEffect } from "react";
 import icon_arrow from "../../img/arrow.svg";
-import { useNavigate } from "react-router-dom";
 
 export const Cart = () => {
   const cartProducts = useSelector((state) => state.cart.cartProducts);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.setItem("cartProducts", JSON.stringify(cartProducts));

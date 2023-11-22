@@ -3,7 +3,7 @@ import { Password } from "./Password";
 import { Name } from "./Name";
 import { FormProvider } from "react-hook-form";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setAutorization, setEmailError } from "../../../store/form";
 import {
   setActiveAuthModal,
@@ -16,15 +16,13 @@ export const RegistrationForm = ({
   activeRegistrationForm,
   formRegisterMethods,
 }) => {
+  const REST_API = useSelector((state) => state.modals.api);
   const dispatch = useDispatch();
   const { handleSubmit, reset } = formRegisterMethods;
   const [cookies, setCookie] = useCookies(["token"]);
 
   const tryRegisterUser = async (data) => {
-    const response = await axios.post(
-      "http://localhost:3030/user/register",
-      data
-    );
+    const response = await axios.post(`${REST_API}/user/register`, data);
     if (!response.data.email) {
       dispatch(setEmailError({ value: "Email is used" }));
     } else {
@@ -36,6 +34,7 @@ export const RegistrationForm = ({
       localStorage.setItem(
         "userData",
         JSON.stringify({
+          id: response.data.id,
           name: response.data.name,
           email: response.data.email,
           role: response.data.role,

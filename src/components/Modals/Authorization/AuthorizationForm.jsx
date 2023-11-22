@@ -1,20 +1,19 @@
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  resetValues,
   setAutorization,
   setEmailError,
   setPasswordError,
 } from "../../../store/form";
 import { setActiveAuthModal } from "../../../store/modals";
 import { useCookies } from "react-cookie";
-import { generateMenuList } from "../../../store/menuAccount";
 
 export const AuthorizationForm = ({
   activeAuth,
   activeAuthorizationForm,
   formAuthMethods,
 }) => {
+  const REST_API = useSelector((state) => state.modals.api);
   const { handleSubmit, register, reset } = formAuthMethods;
   const dispatch = useDispatch();
 
@@ -35,7 +34,7 @@ export const AuthorizationForm = ({
   );
 
   const tryAuthorizationUser = async (data) => {
-    const response = await axios.post("http://localhost:3030/user/auth", data);
+    const response = await axios.post(`${REST_API}/user/auth`, data);
 
     if (!response.data.email) {
       dispatch(setEmailError({ value: "Email isn't used" }));
@@ -53,6 +52,7 @@ export const AuthorizationForm = ({
       localStorage.setItem(
         "userData",
         JSON.stringify({
+          id: response.data.userData.id,
           name: response.data.userData.name,
           email: response.data.userData.email,
           role: response.data.userData.role,
