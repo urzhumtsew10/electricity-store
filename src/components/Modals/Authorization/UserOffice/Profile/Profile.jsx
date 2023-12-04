@@ -3,8 +3,8 @@ import userAvatar from "../../../../../img/icon-user.svg";
 
 export const Profile = () => {
   const userData = JSON.parse(localStorage.getItem("userData"));
-  const userName = userData.name;
-  const userEmail = userData.email;
+  const userName = userData?.name;
+  const userEmail = userData?.email;
   return (
     <div className="userOffice__content contentProfile">
       <div className="contentProfile__userInfo">

@@ -4,7 +4,7 @@ const initialState = {
   catalogMenu: [
     {
       title: "Phones and Laptops",
-      categories: ["phone", "laptop", "phone case", "laptop case"],
+      categories: ["phone", "laptop", "tablet"],
       isActive: true,
     },
     {

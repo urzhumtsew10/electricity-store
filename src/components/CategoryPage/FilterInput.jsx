@@ -1,9 +1,9 @@
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { useGetProductsQuery } from "../../api";
 
 export const FilterInput = ({ title, type, productsFiltering }) => {
   const { category } = useParams();
-  const { data } = useGetProductsQuery();
+  const data = useSelector((state) => state.products.products);
 
   const countQuantity = () => {
     const correctCategory = category.split("-").join(" ");

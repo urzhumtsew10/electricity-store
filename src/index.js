@@ -12,7 +12,6 @@ import cartReducer from "./store/cart";
 import electedProductReducer from "./store/elected";
 import catalogReducer from "./store/catalog";
 import categoryReducer from "./store/categories";
-import { api } from "./api";
 import { Provider } from "react-redux";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
@@ -24,17 +23,15 @@ const store = configureStore({
   reducer: {
     products: productsReducer,
     brands: brandsReducer,
-    category: categoryReducer,
+    categories: categoryReducer,
     catalog: catalogReducer,
     modals: modalReducer,
     formRegister: formRegisterReducer,
     menuAccount: menuAccountReducer,
     electedProducts: electedProductReducer,
     cart: cartReducer,
-    [api.reducerPath]: api.reducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(...[api.middleware]),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(),
 });
 
 root.render(

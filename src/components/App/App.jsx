@@ -10,12 +10,15 @@ import { ProductPage } from "../ProductPage/ProductPage";
 import { ErrorModal } from "../Modals/ErrorModal/ErrorModal";
 import { useSelector } from "react-redux";
 import { CategoryPage } from "../CategoryPage/CategoryPage";
+import { OrderForm } from "../OrderForm/OrderForm";
 
 function App() {
   const errorModal = useSelector((state) => state.modals.errorModal);
+  const isActiveOrderForm = useSelector((state) => state.modals.orderForm);
   return (
     <div className="online-store">
       {errorModal.isActive && <ErrorModal />}
+      {isActiveOrderForm && <OrderForm />}
       <Header />
       <Authorization />
       <div className="contentPage">

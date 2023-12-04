@@ -54,6 +54,9 @@ const cartSlice = createSlice({
         currentProduct.counter += 1;
       }
     },
+    removeAllProducts: (state, action) => {
+      return { ...state, cartProducts: [] };
+    },
   },
 });
 
@@ -62,5 +65,6 @@ export const {
   deleteProduct,
   decrementQuantity,
   incrementQuantity,
+  removeAllProducts,
 } = cartSlice.actions;
 export default cartSlice.reducer;

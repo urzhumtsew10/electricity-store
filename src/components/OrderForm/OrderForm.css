@@ -1,0 +1,283 @@
+.orderForm {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgb(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+.orderForm__content {
+  position: relative;
+  width: 610px;
+  height: 630px;
+  background-color: #fff;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.orderForm__close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  width: 32px;
+  height: 32px;
+}
+.orderForm__close:hover {
+  cursor: pointer;
+  transform: scale(1.06);
+}
+.orderForm__title {
+  margin-top: 15px;
+  font-size: 35px;
+  font-weight: 600;
+}
+.orderForm__form {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form__input {
+  margin-top: 10px;
+  padding-left: 10px;
+  width: 375px;
+  height: 40px;
+  border: 1px solid #e4e7ee;
+  border-radius: 8px;
+
+  font-size: 16px;
+  font-weight: 500;
+  color: #6c757d;
+}
+
+.form__input:focus {
+  border: 1px solid #0d63f3;
+}
+.orderFrom__methodPay {
+  margin-top: 10px;
+  padding: 0 10px 0 10px;
+  width: 250px;
+  height: 50px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid #6c757d;
+  position: relative;
+}
+.mathodPay__img {
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  z-index: 2;
+}
+.mwthodPay__total {
+  font-size: 18px;
+  font-weight: 500;
+}
+.methodPay__circle {
+  position: absolute;
+  width: 50px;
+  height: 44px;
+  background-color: #0d63f3;
+  border-radius: 12px;
+}
+.methodPay__circle.cash {
+  animation-name: cash;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+@keyframes cash {
+  0% {
+    left: 200px;
+  }
+  100% {
+    left: 1px;
+  }
+}
+.methodPay__circle.card {
+  animation-name: card;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+@keyframes card {
+  0% {
+    right: 200px;
+  }
+  100% {
+    right: 1px;
+  }
+}
+.orderForm__btn {
+  position: absolute;
+  bottom: 15px;
+  width: 155px;
+  height: 45px;
+  background-color: #0d63f3;
+  border-radius: 10px;
+
+  font-size: 20px;
+  font-weight: 500;
+  color: #fff;
+}
+.orderForm__btn:hover {
+  transition: 0.4s;
+  border: 1px solid #0d63f3;
+  background-color: #fff;
+  color: #0d63f3;
+}
+.orderForm__bankCard {
+  margin-top: 10px;
+  width: 55%;
+  height: 165px;
+  border-radius: 20px;
+  border: 1px solid rgba(93, 79, 247, 0.73);
+  background: radial-gradient(
+    385.89% 185.6% at -34.85% -34.65%,
+    rgba(61, 69, 225, 0.627) 7.06%,
+    rgba(19, 72, 185, 0.566) 61.62%,
+    rgba(66, 109, 225, 0.421) 89.96%
+  );
+  box-shadow: 0px 0px 24px -14px rgba(0, 0, 0, 0.25),
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(11px);
+  position: relative;
+}
+.bankCard__title {
+  position: absolute;
+  top: 28px;
+  left: 24px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+}
+.bankCard__img {
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  top: 12px;
+  right: 24px;
+}
+.bankCard__numberCard {
+  display: flex;
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+}
+.numberCard__input {
+  width: 10px;
+  text-align: center;
+
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+}
+.numberCard__input:nth-child(4n) {
+  margin-right: 10px;
+}
+.bankCard__userName {
+  position: absolute;
+  bottom: 48px;
+  left: 24px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 400;
+}
+.orderForm__errorDiv {
+  margin-top: 10px;
+  width: 348px;
+  height: 82px;
+  border-radius: 32px;
+  background: #c72c41;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.errorDiv__img {
+  position: absolute;
+  top: -24px;
+  left: 12px;
+  width: 48px;
+  height: 48px;
+}
+.errorDiv__textError {
+  position: absolute;
+  left: 77px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #fff;
+}
+.textError__span {
+  font-size: 22px;
+  font-weight: 500;
+}
+.orderForm__successMessage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 475px;
+  height: 550px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+.successMessage__circle {
+  margin-top: 40px;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  border: 4px solid #609966;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation-name: circle-tick;
+  animation-duration: 0.8s;
+}
+@keyframes circle-tick {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.circle__img {
+  width: 110px;
+}
+.successMessage__title {
+  margin-top: 50px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #609966;
+}
+.successMessage__text {
+  text-align: center;
+  margin-top: 44px;
+  font-size: 15px;
+  font-weight: 500;
+  color: rgba(64, 81, 59, 0.49);
+}
+.successMessage__btn {
+  width: 242px;
+  height: 67px;
+  background-color: #609966;
+  border-radius: 30px;
+  position: absolute;
+  bottom: 50px;
+
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 4px;
+}
+.successMessage__btn:hover {
+  transition: 0.5s;
+  background-color: #fff;
+  border: 1px solid #609966;
+  color: #609966;
+}

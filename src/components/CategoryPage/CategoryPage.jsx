@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import "../CategoryPage/CategoryPage.css";
 import { useParams } from "react-router-dom";
-import { useGetProductsQuery } from "../../api";
 import { SliderImages } from "../SliderImages/SliderImages";
 import { FilterInput } from "./FilterInput";
 import banner_01 from "../../img/banner-01.jpg";
@@ -10,12 +9,13 @@ import search from "../../img/icon-search.svg";
 import { ProductCard } from "../Products/ProductCard/ProductCard";
 import Slider from "react-slider";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 export const CategoryPage = () => {
   const { category } = useParams();
   const [categoryData, setCategoryData] = useState({});
   const [filter, setFilter] = useState({});
-  const { data } = useGetProductsQuery();
+  const data = useSelector((state) => state.products.products);
   const [priceValues, setPriceValues] = useState([10, 10000]);
   const brandsRef = useRef(null);
   const colorsRef = useRef(null);
@@ -202,8 +202,8 @@ export const CategoryPage = () => {
             {categoryData?.products &&
               categoryData.products.map((product) => (
                 <ProductCard
-                  key={product.id}
-                  id={product.id}
+                  key={product._id}
+                  id={product._id}
                   category={product.category}
                   brand={product.brand}
                   color={product.color}

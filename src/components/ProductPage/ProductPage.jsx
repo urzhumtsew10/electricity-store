@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import "../ProductPage/ProductPage.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { setCurrentProduct } from "../../store/products";
@@ -13,11 +13,14 @@ import {
   setActiveAuthForm,
   setActiveAuthModal,
   setActiveUserOffice,
+  setOrderForm,
 } from "../../store/modals";
 import { addToCart } from "../../store/cart";
+import { dotStream } from "ldrs";
+
+dotStream.register();
 
 export const ProductPage = () => {
-  const REST_API = useSelector((state) => state.modals.api);
   const productData = useSelector((state) => state.products.currentProduct);
   const cartProducts = useSelector((state) => state.cart.cartProducts);
 
@@ -25,24 +28,28 @@ export const ProductPage = () => {
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies(["token"]);
   const { id } = useParams();
+  const products = useSelector((state) => state.products.products);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const REST_API = useSelector((state) => state.modals.api);
 
   useEffect(() => {
-    const response = axios.get(`${REST_API}/products/${id}`);
-    response.then((product) => {
+    if (products) {
+      const product = products.filter((product) => product._id === id)[0];
       dispatch(
         setCurrentProduct({
           value: {
-            id: product.data.id,
-            category: product.data.category,
-            img: product.data.img,
-            brand: product.data.brand,
-            color: product.data.color,
-            price: product.data.price,
-            description: product.data.description,
+            id: product._id,
+            category: product.category,
+            img: product.img,
+            brand: product.brand,
+            color: product.color,
+            price: product.price,
+            description: product.description,
           },
         })
       );
-    });
+    }
   }, [window.location.href]);
 
   const userData = JSON.parse(localStorage.getItem("userData"));
@@ -53,7 +60,7 @@ export const ProductPage = () => {
   const isElected = () => {
     if (electedProducts && userData) {
       const userElected = electedProducts.filter(
-        (product) => product.userId === userData.id
+        (product) => product.userEmail === userData.email
       );
       return userElected.filter(
         (product) => product.productId === productData.id
@@ -63,11 +70,16 @@ export const ProductPage = () => {
     }
   };
 
+  const openOrderForm = () => {
+    dispatch(setOrderForm({ isActive: true }));
+    document.body.style.overflow = "hidden";
+  };
+
   const addProductToCart = (event) => {
     event.stopPropagation();
     dispatch(
       addToCart({
-        id: +id,
+        id: id,
         category: productData.category,
         img: productData.img,
         brand: productData.brand,
@@ -85,11 +97,12 @@ export const ProductPage = () => {
     navigate("/cart");
   };
 
-  const addElectedProduct = (event) => {
+  const addElectedProduct = async (event) => {
+    setIsLoading(true);
     event.stopPropagation();
     if (cookies.token) {
       const product = {
-        userId: userData.id,
+        userEmail: userData.email,
         productId: productData.id,
         category: productData.category,
         img: productData.img,
@@ -98,29 +111,25 @@ export const ProductPage = () => {
         price: productData.price,
         description: productData.description,
       };
-      axios.post("http://localhost:3030/elected", { ...product });
-      if (electedProducts) {
-        dispatch(
-          setElectedProducts({ value: [...electedProducts, { ...product }] })
-        );
-      } else {
-        dispatch(setElectedProducts({ value: [product] }));
-      }
+      const response = await axios.post(`${REST_API}/elected`, {
+        ...product,
+      });
+      dispatch(setElectedProducts({ value: response.data }));
     } else {
       dispatch(setActiveAuthModal({ isActive: true }));
       dispatch(setActiveAuthForm({ isActive: true }));
       dispatch(setActiveUserOffice({ isActive: false }));
       document.body.style.overflow = "hidden";
     }
+    setIsLoading(false);
   };
 
-  const removeElectedProduct = (event) => {
+  const removeElectedProduct = async (event) => {
+    setIsLoading(true);
     event.stopPropagation();
-    axios.delete(`http://localhost:3030/elected/${id}`);
-    const updateElectedProducts = electedProducts.filter(
-      (product) => product.productId !== productData.id
-    );
-    dispatch(setElectedProducts({ value: [...updateElectedProducts] }));
+    const response = await axios.delete(`${REST_API}/elected/${id}`);
+    dispatch(setElectedProducts({ value: response.data }));
+    setIsLoading(false);
   };
 
   const goBackHome = () => {
@@ -145,6 +154,15 @@ export const ProductPage = () => {
       </p>
       <div className="contentProductPage__viewProduct">
         <div className="viewProduct__blockImg">
+          {isLoading && (
+            <div className="product__loading">
+              <l-dot-stream
+                size="92"
+                speed="1.75"
+                color="#0d63f3"
+              ></l-dot-stream>
+            </div>
+          )}
           {isElected() && (
             <img
               onClick={removeElectedProduct}
@@ -180,7 +198,9 @@ export const ProductPage = () => {
           ></div>
           <p className="productInfo__price">{productData.price}$</p>
           <div className="productInfo__actions">
-            <button className="actions__checkoutBtn">Checkout</button>
+            <button onClick={openOrderForm} className="actions__checkoutBtn">
+              Checkout
+            </button>
             <button
               onClick={addProductToCart}
               className="actions__addToCartBtn"

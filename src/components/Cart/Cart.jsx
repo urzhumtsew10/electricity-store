@@ -1,11 +1,13 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "../Cart/Cart.css";
 import { CartProduct } from "./CartProduct";
 import { useEffect } from "react";
 import icon_arrow from "../../img/arrow.svg";
+import { setOrderForm } from "../../store/modals";
 
 export const Cart = () => {
   const cartProducts = useSelector((state) => state.cart.cartProducts);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     localStorage.setItem("cartProducts", JSON.stringify(cartProducts));
@@ -18,6 +20,11 @@ export const Cart = () => {
 
   const goBackHome = () => {
     window.history.back();
+  };
+
+  const openOrderForm = () => {
+    dispatch(setOrderForm({ isActive: true }));
+    document.body.style.overflow = "hidden";
   };
 
   const DELIVERY_COST = 20;
@@ -66,7 +73,9 @@ export const Cart = () => {
           <p className="total__text">TOTAL</p>
           <p className="total__bill">{sumProducts + DELIVERY_COST}$</p>
         </div>
-        <button className="considerTotalPrice__btn">Checkout</button>
+        <button onClick={openOrderForm} className="considerTotalPrice__btn">
+          Checkout
+        </button>
       </div>
     </div>
   );

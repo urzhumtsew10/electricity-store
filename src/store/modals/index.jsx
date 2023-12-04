@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  api: "https://electricity-store-api.vercel.app",
+  api: "https://electricity-store-api-2.vercel.app",
   editList: [
     { title: "Add New", isActive: false },
     { title: "Search", isActive: true },
@@ -12,6 +12,7 @@ const initialState = {
   userOffice: false,
   authForm: true,
   registerForm: false,
+  orderForm: false,
   errorModal: { text: "", isActive: false },
 };
 
@@ -19,6 +20,9 @@ const modalsSlice = createSlice({
   name: "modals",
   initialState,
   reducers: {
+    setOrderForm: (state, action) => {
+      return { ...state, orderForm: action.payload.isActive };
+    },
     setErrorModal: (state, action) => {
       return {
         ...state,
@@ -59,6 +63,7 @@ const modalsSlice = createSlice({
 });
 
 export const {
+  setOrderForm,
   setErrorModal,
   setActiveEditList,
   setActiveRegisterForm,

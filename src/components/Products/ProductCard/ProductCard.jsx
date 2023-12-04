@@ -12,9 +12,12 @@ import {
   setActiveAuthModal,
   setActiveUserOffice,
 } from "../../../store/modals";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { setElectedProducts } from "../../../store/elected";
 import { useCookies } from "react-cookie";
+
+import { dotStream } from "ldrs";
+dotStream.register();
 
 export const ProductCard = ({
   category,
@@ -29,6 +32,7 @@ export const ProductCard = ({
   const electedProducts = useSelector(
     (state) => state.electedProducts.electedProducts
   );
+  const REST_API = useSelector((state) => state.modals.api);
   const [cookies, setCookie] = useCookies(["token"]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -37,20 +41,24 @@ export const ProductCard = ({
 
   useEffect(() => {
     if (cookies.token) {
-      const response = axios.get("http://localhost:3030/elected");
-      response.then((electedProducts) => {
-        const userElectedProducts = electedProducts.data.filter(
-          (product) => product.userId === userData.id
-        );
-        dispatch(setElectedProducts({ value: userElectedProducts }));
+      const response = axios.get(`${REST_API}/elected`);
+      response.then((elected) => {
+        if (elected.data) {
+          const userElectedProducts = elected.data.filter(
+            (product) => product.userEmail === userData.email
+          );
+          dispatch(setElectedProducts({ value: userElectedProducts }));
+        }
       });
     }
   }, [cookies.token]);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const isElected = () => {
     if (electedProducts && userData) {
       const userElected = electedProducts.filter(
-        (product) => product.userId === userData.id
+        (product) => product.userEmail === userData.email
       );
       return userElected.filter((product) => product.productId === id)[0];
     } else {
@@ -88,11 +96,12 @@ export const ProductCard = ({
     });
   };
 
-  const addElectedProduct = (event) => {
+  const addElectedProduct = async (event) => {
+    setIsLoading(true);
     event.stopPropagation();
     if (cookies.token) {
       const product = {
-        userId: userData.id,
+        userEmail: userData.email,
         productId: id,
         category: category,
         img: img,
@@ -101,35 +110,35 @@ export const ProductCard = ({
         price: price,
         description: description,
       };
-      axios.post("http://localhost:3030/elected", { ...product });
-      if (electedProducts) {
-        dispatch(
-          setElectedProducts({ value: [...electedProducts, { ...product }] })
-        );
-      } else {
-        dispatch(setElectedProducts({ value: [product] }));
-      }
+
+      const response = await axios.post(`${REST_API}/elected`, {
+        ...product,
+      });
+      dispatch(setElectedProducts({ value: response.data }));
     } else {
       dispatch(setActiveAuthModal({ isActive: true }));
       dispatch(setActiveAuthForm({ isActive: true }));
       dispatch(setActiveUserOffice({ isActive: false }));
       document.body.style.overflow = "hidden";
     }
+    setIsLoading(false);
   };
 
-  const removeElectedProduct = (event) => {
+  const removeElectedProduct = async (event) => {
+    setIsLoading(true);
     event.stopPropagation();
-    axios.delete(`http://localhost:3030/elected/${id}`);
-    const updateElectedProducts = electedProducts.filter(
-      (product) => product.productId !== id
-    );
-    dispatch(setElectedProducts({ value: [...updateElectedProducts] }));
+    const response = await axios.delete(`${REST_API}/elected/${id}`);
+    dispatch(setElectedProducts({ value: response.data }));
+    setIsLoading(false);
   };
-
-  const productImg = img.length > 50 ? img : require(`../../../img/${img}`);
 
   return (
     <div onClick={openProductPage} className="products__product">
+      {isLoading && (
+        <div className="product__loading">
+          <l-dot-stream size="80" speed="1.75" color="#0d63f3"></l-dot-stream>
+        </div>
+      )}
       {isElected() && (
         <img
           onClick={removeElectedProduct}
@@ -147,7 +156,7 @@ export const ProductCard = ({
         />
       )}
       <div className="product__priviewBlock">
-        <img className="priviewBlock__img" src={productImg} alt="product img" />
+        <img className="priviewBlock__img" src={img} alt="product img" />
       </div>
       <div className="product__aboutProduct">
         <h2 className="aboutProduct__price">{price}$</h2>

@@ -1,9 +1,9 @@
 import { ProductEditCard } from "./ProductEditCard";
-import { useGetProductsQuery } from "../../../../../api";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 export const ProductsEdit = () => {
-  const { data } = useGetProductsQuery();
+  const data = useSelector((state) => state.products.products);
 
   const [products, setProducts] = useState([]);
 
@@ -36,8 +36,8 @@ export const ProductsEdit = () => {
         {data &&
           products.map((product) => (
             <ProductEditCard
-              key={product.id}
-              id={product.id}
+              key={product._id}
+              id={product._id}
               img={product.img}
               category={product.category}
               brand={product.brand}

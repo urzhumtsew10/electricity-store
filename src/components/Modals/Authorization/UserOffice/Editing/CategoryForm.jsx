@@ -3,14 +3,12 @@ import { EditInput } from "./EditInput";
 import { useDispatch, useSelector } from "react-redux";
 import { setErrorModal } from "../../../../../store/modals";
 import axios from "axios";
-import { useLazyGetCategoriesQuery } from "../../../../../api";
 
 export const CategoryForm = ({ formCategoryMethods }) => {
   const REST_API = useSelector((state) => state.modals.api);
 
   const inputRef = useRef(null);
   const [inputFile, setInputFile] = useState("");
-  const [fetchCategories] = useLazyGetCategoriesQuery();
   const dispatch = useDispatch();
   const {
     handleSubmit,
@@ -28,7 +26,6 @@ export const CategoryForm = ({ formCategoryMethods }) => {
           data.title[0].toUpperCase() +
           data.title.slice(1, data.title.length).toLowerCase();
         const response = await axios.post(`${REST_API}/categories`, data);
-        fetchCategories();
       } catch {
         dispatch(
           setErrorModal({ text: "The photo weighs too much", isActive: true })

@@ -3,10 +3,7 @@ import { EditInput } from "./EditInput";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setErrorModal } from "../../../../../store/modals";
-import {
-  useLazyGetCategoriesQuery,
-  useLazyGetProductsQuery,
-} from "../../../../../api";
+import { setProducts } from "../../../../../store/products";
 
 export const ProductForm = ({ formProductMethods }) => {
   const REST_API = useSelector((state) => state.modals.api);
@@ -24,7 +21,6 @@ export const ProductForm = ({ formProductMethods }) => {
 
   const inputRef = useRef(null);
   const [inputFile, setInputFile] = useState("");
-  const [fetchProducts] = useLazyGetProductsQuery();
 
   const dispatch = useDispatch();
   const {
@@ -39,7 +35,7 @@ export const ProductForm = ({ formProductMethods }) => {
       data.img = inputFile;
       correctionData(data);
       const response = await axios.post(`${REST_API}/products`, data);
-      fetchProducts();
+      dispatch(setProducts({ value: response.data }));
     } catch {
       dispatch(
         setErrorModal({ text: "The photo weighs too much", isActive: true })

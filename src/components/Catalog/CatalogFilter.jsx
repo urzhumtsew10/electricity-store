@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
-import { useGetProductsQuery } from "../../api";
 import { ItemFilter } from "./ItemFilter";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCatalogFilter } from "../../store/catalog";
 import { useNavigate } from "react-router-dom";
 
 export const CatalogFilter = ({ title }) => {
-  const products = useGetProductsQuery();
   const [brands, setBrands] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const products = useSelector((state) => state.products.products);
 
   const openCategoryPage = (brand) => {
     const categoryProcessing = title.split(" ").join("-");
@@ -18,8 +17,8 @@ export const CatalogFilter = ({ title }) => {
   };
 
   useEffect(() => {
-    if (products.data) {
-      const categoryBrands = products.data.reduce((acc, product) => {
+    if (products) {
+      const categoryBrands = products.reduce((acc, product) => {
         if (!acc.includes(product.brand) && product.category === title) {
           return [...acc, product.brand];
         }
@@ -27,7 +26,7 @@ export const CatalogFilter = ({ title }) => {
       }, []);
       setBrands(categoryBrands);
     }
-  }, [products.data]);
+  }, [products]);
 
   return (
     <div className="content__catalogFilter">

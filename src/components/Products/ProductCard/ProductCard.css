@@ -88,3 +88,15 @@
   border: 1px solid #0d63f3;
   background-color: #fff;
 }
+.product__loading {
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff7b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

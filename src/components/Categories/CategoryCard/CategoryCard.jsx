@@ -1,9 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "./CategoryCard.css";
 
-export const CategoryCard = ({ id, title, img }) => {
-  const categoryImg = img.length > 50 ? img : require(`../../../img/${img}`);
-
+export const CategoryCard = ({ _id, title, img }) => {
   const navigate = useNavigate();
 
   const openCategoryPage = () => {
@@ -13,7 +11,7 @@ export const CategoryCard = ({ id, title, img }) => {
 
   return (
     <div onClick={openCategoryPage} className="categories__category">
-      <img className="category__img" src={categoryImg} />
+      <img className="category__img" src={img} />
       <h2 className="category__title">{title}</h2>
     </div>
   );

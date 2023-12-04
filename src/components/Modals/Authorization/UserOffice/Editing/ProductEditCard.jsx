@@ -1,25 +1,20 @@
 import icon_trash from "../../../../../img/icon-trash.svg";
 import axios from "axios";
-import {
-  useLazyGetCategoriesQuery,
-  useLazyGetProductsQuery,
-} from "../../../../../api";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setProducts } from "../../../../../store/products";
 
 export const ProductEditCard = ({ id, img, category, brand, color, price }) => {
   const REST_API = useSelector((state) => state.modals.api);
-  const productImg =
-    img.length > 50 ? img : require(`../../../../../img/${img}`);
-  const [fetchProducts] = useLazyGetProductsQuery();
+  const dispatch = useDispatch();
 
   const deleteProduct = async () => {
     const response = await axios.delete(`${REST_API}/products/${id}`);
-    fetchProducts();
+    dispatch(setProducts({ value: response.data }));
   };
 
   return (
     <div className="products__editProduct">
-      <img className="editProduct__img" src={productImg} alt="img product" />
+      <img className="editProduct__img" src={img} alt="img product" />
       <p className="editProduct__infoProduct">
         {category} {brand} {color}
       </p>

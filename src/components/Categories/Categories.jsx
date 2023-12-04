@@ -1,23 +1,25 @@
-import {
-  useGetCategoriesQuery,
-  useGetProductsQuery,
-  useLazyGetCategoriesQuery,
-} from "../../api";
 import { CategoryCard } from "./CategoryCard/CategoryCard";
 import "../Categories/Categories.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setCategories } from "../../store/categories";
 
 export const Categories = () => {
   const REST_API = useSelector((state) => state.modals.api);
-  const { data } = useGetCategoriesQuery();
-  const [fetchCategories] = useLazyGetCategoriesQuery();
   const [isActiveSeeMore, setActiveSeeMore] = useState(true);
-  const products = useGetProductsQuery();
+  const products = useSelector((state) => state.products.products);
+  const categories = useSelector((state) => state.categories.categories);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    axios.get(`${REST_API}/categories`).then((categories) => {
+      dispatch(setCategories({ value: categories.data }));
+    });
+  }, []);
 
   const addNewCategory = async (product) => {
-    if (product) {
+    if (product && product.category !== products[0].category) {
       const title =
         product.category[0].toUpperCase() +
         product.category.slice(1, product.category.length).toLowerCase();
@@ -25,15 +27,15 @@ export const Categories = () => {
         title: title,
         img: product.img,
       });
-      fetchCategories();
+      dispatch(setCategories({ value: response.data }));
     }
   };
 
   const deleteCategory = async (category) => {
     const response = await axios.delete(
-      `${REST_API}/categories/${category.id}`
+      `${REST_API}/categories/${category._id}`
     );
-    fetchCategories();
+    dispatch(setCategories({ value: response.data }));
   };
 
   const showMoreCategories = () => {
@@ -45,11 +47,13 @@ export const Categories = () => {
   };
 
   useEffect(() => {
-    if (products.data && data) {
-      const categories = data.map((category) => category.title.toLowerCase());
-      const newCategory = products.data.filter((product) => {
-        if (!categories.includes(product.category)) {
-          categories.push(product.category);
+    if (products && categories) {
+      const categoriesArray = categories.map((category) =>
+        category.title.toLowerCase()
+      );
+      const newCategory = products.filter((product) => {
+        if (!categoriesArray.includes(product.category)) {
+          categoriesArray.push(product.category);
           return true;
         }
         return false;
@@ -57,31 +61,28 @@ export const Categories = () => {
 
       addNewCategory(newCategory);
 
-      const productsCategories = products.data.map(
-        (product) => product.category
-      );
+      const productsCategories = products.map((product) => product.category);
 
       const redundantCategories = categories.filter(
-        (category) => !productsCategories.includes(category)
+        (category) => !productsCategories.includes(category.title.toLowerCase())
       );
 
-      data.forEach((category) => {
-        if (redundantCategories.includes(category.title.toLowerCase())) {
-          deleteCategory(category);
-        }
+      redundantCategories.forEach((category) => {
+        deleteCategory(category);
       });
     }
   }, [products]);
 
-  const categories = data && isActiveSeeMore ? data.slice(0, 8) : data;
+  const categoriesData =
+    categories && isActiveSeeMore ? categories.slice(0, 8) : categories;
 
   return (
     <div className="contentCategory">
       <h2 className="contentCategories__title">Categories</h2>
       <div className="contentCategories__categories">
-        {data &&
-          categories.map(({ title, id, img }) => (
-            <CategoryCard key={id} title={title} img={img} />
+        {categories &&
+          categoriesData.map(({ title, _id, img }) => (
+            <CategoryCard key={_id} title={title} img={img} />
           ))}
       </div>
       {isActiveSeeMore && (
