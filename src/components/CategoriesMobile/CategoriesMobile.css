@@ -1,0 +1,35 @@
+.categoriesMobile {
+  position: relative;
+  margin-top: 40px;
+  width: 100%;
+}
+.categoriesMobile__arrow {
+  cursor: pointer;
+  position: absolute;
+  top: 15px;
+  left: 30px;
+  width: 40px;
+  height: 40px;
+}
+.categoriesMobile__text {
+  cursor: pointer;
+  position: absolute;
+  top: 25px;
+  left: 63px;
+  font-size: 16px;
+  font-weight: 400;
+}
+.categoriesMobile__arrow:hover + .categoriesMobile__text {
+  text-decoration: underline;
+}
+.categoriesMobile__text:hover {
+  text-decoration: underline;
+}
+.categoriesMobile__categories {
+  margin-top: 100px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 136px);
+  justify-content: center;
+  gap: 15px;
+}

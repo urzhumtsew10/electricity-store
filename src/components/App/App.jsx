@@ -11,6 +11,8 @@ import { ErrorModal } from "../Modals/ErrorModal/ErrorModal";
 import { useSelector } from "react-redux";
 import { CategoryPage } from "../CategoryPage/CategoryPage";
 import { OrderForm } from "../OrderForm/OrderForm";
+import { CategoriesMobile } from "../CategoriesMobile/CategoriesMobile";
+import { Catalog } from "../Catalog/Catalog";
 
 function App() {
   const errorModal = useSelector((state) => state.modals.errorModal);
@@ -28,6 +30,8 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/product/:id" element={<ProductPage />} />
           <Route path="/category/:category" element={<CategoryPage />} />
+          <Route path="/categories-mobile" element={<CategoriesMobile />} />
+          <Route path="/catalog-mobile" element={<Catalog />} />
         </Routes>
       </div>
       <Footer />

@@ -7,18 +7,20 @@ import user_icon from "../../img/icon-user.svg";
 import icon_close from "../../img/icon-close.svg";
 import arrow from "../../img/arrow.svg";
 import "../Header/Header.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   setActiveAuthForm,
   setActiveAuthModal,
   setActiveUserOffice,
 } from "../../store/modals";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useCookies } from "react-cookie";
 import { generateMenuList } from "../../store/menuAccount";
 import { Catalog } from "../Catalog/Catalog";
 import { setCatalogFilter } from "../../store/catalog";
+import { CartProduct } from "../Cart/CartProduct";
+import { SearchProduct } from "./SearchProduct";
 
 export const Header = () => {
   const dispatch = useDispatch();
@@ -81,6 +83,60 @@ export const Header = () => {
     document.body.style.overflow = "hidden";
   };
 
+  const products = useSelector((state) => state.products.products);
+  const [isActiveSearch, setIsActive] = useState(false);
+  const [resultSearchProducts, setResultSearchProducts] = useState([]);
+  const inputSearchRef = useRef(null);
+  const inputSearchMobileRef = useRef(null);
+
+  const searchProducts = () => {
+    const searchProducts = products.filter((product) => {
+      const searchReg = new RegExp(
+        `${inputSearchRef.current.value.toLowerCase()}`
+      );
+      const productTitle =
+        `${product.category} ${product.brand} ${product.description} ${product.color}`.toLowerCase();
+      if (inputSearchRef.current.value === "") {
+        return false;
+      } else {
+        return searchReg.test(productTitle);
+      }
+    });
+    setResultSearchProducts(searchProducts);
+    setIsActive(true);
+  };
+  const searchProductsMobile = () => {
+    const searchProducts = products.filter((product) => {
+      const searchReg = new RegExp(
+        `${inputSearchMobileRef.current.value.toLowerCase()}`
+      );
+      const productTitle =
+        `${product.category} ${product.brand} ${product.description} ${product.color}`.toLowerCase();
+      if (inputSearchMobileRef.current.value === "") {
+        return false;
+      } else {
+        return searchReg.test(productTitle);
+      }
+    });
+    setResultSearchProducts(searchProducts);
+    setIsActive(true);
+  };
+
+  const closeSearchProducts = () => {
+    inputSearchRef.current.value = "";
+    setIsActive(false);
+  };
+
+  const openCategories = () => {
+    closeMobileMenu();
+    navigate("/categories-mobile");
+  };
+
+  const openCatalogMobile = () => {
+    closeMobileMenu();
+    navigate("/catalog-mobile");
+  };
+
   return (
     <header className="header">
       <div onClick={openMobileMenu} className="header__menu">
@@ -92,13 +148,41 @@ export const Header = () => {
         src={logo}
         alt="log"
       />
+      {isActiveSearch && (
+        <div className="header__searchProducts">
+          <button
+            onClick={closeSearchProducts}
+            className="searchProducts__btnClose"
+          >
+            <img className="btnClose__img" src={icon_close} alt="close" />
+          </button>
+          {resultSearchProducts.length === 0 && (
+            <p className="searchProducts__message">Not Found Products!</p>
+          )}
+          {products &&
+            resultSearchProducts.map((product) => (
+              <SearchProduct
+                closeSearchProducts={closeSearchProducts}
+                key={product._id}
+                id={product._id}
+                img={product.img}
+                category={product.category}
+                brand={product.brand}
+                color={product.color}
+                description={product.description}
+                price={product.price}
+              />
+            ))}
+        </div>
+      )}
       <div className="header__searchDiv mobileSearch">
         <input
+          ref={inputSearchMobileRef}
           className="searchDiv__input"
           type="text"
           placeholder="search product"
         />
-        <div className="searchDiv__buttonSearch">
+        <div onClick={searchProductsMobile} className="searchDiv__buttonSearch">
           <img
             className="buttonSearch__img header-icon"
             src={search}
@@ -114,12 +198,14 @@ export const Header = () => {
         <Catalog />
         <div className="header__searchDiv">
           <input
+            ref={inputSearchRef}
             className="searchDiv__input"
             type="text"
             placeholder="search product"
           />
           <div className="searchDiv__buttonSearch">
             <img
+              onClick={searchProducts}
               className="buttonSearch__img header-icon"
               src={search}
               alt="search"
@@ -190,7 +276,10 @@ export const Header = () => {
             </div>
           </div>
           <div className="horizontalLine"></div>
-          <div className="headerMobile__categoriesBtn section-box">
+          <div
+            onClick={openCategories}
+            className="headerMobile__categoriesBtn section-box"
+          >
             <p className="categoriesBtn__title section-title">Categories</p>
             <img
               className="categoriesBtn__arrow section-arrow"
@@ -198,7 +287,10 @@ export const Header = () => {
               alt="arrow"
             />
           </div>
-          <div className="headerMobile__catalogBtn section-box">
+          <div
+            onClick={openCatalogMobile}
+            className="headerMobile__catalogBtn section-box"
+          >
             <p className="catalogBtn__title section-title">Product catalog</p>
             <img
               className="catalogBtn__arrow section-arrow"

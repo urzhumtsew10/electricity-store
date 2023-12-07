@@ -46,4 +46,7 @@
   .contentCategories__categories {
     grid-template-columns: repeat(auto-fit, 120px);
   }
+  .contentCategory {
+    display: none;
+  }
 }

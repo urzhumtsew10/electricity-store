@@ -6,10 +6,6 @@ import banner_01 from "../../img/banner-01.jpg";
 import banner_02 from "../../img/banner_02.png";
 import banner_03 from "../../img/banner_03.png";
 import "../Main/reset.css";
-import { useDispatch, useSelector } from "react-redux";
-import { setCategories } from "../../store/categories";
-import axios from "axios";
-import { useEffect } from "react";
 
 export const Main = () => {
   return (

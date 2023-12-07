@@ -1,0 +1,61 @@
+.ordersContent__title {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 22px 0 0 20px;
+}
+.ordersContent__orders {
+  overflow-y: scroll;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 5px;
+  row-gap: 10px;
+  margin-top: 10px;
+  padding-left: 5px;
+  width: 100%;
+  height: 350px;
+}
+.orders__orderCard {
+  cursor: pointer;
+  width: 165px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  border: 1px solid rgba(72, 72, 72, 0.73);
+  box-shadow: 0px 0px 24px -14px rgba(0, 0, 0, 0.25),
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  background-color: rgba(71, 139, 249, 0.142);
+}
+.orders__orderCard:hover {
+  transition: 0.3s;
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.25);
+}
+.orderCard__numberOrder {
+  margin: 10px 0 0 5px;
+  font-size: 17px;
+  font-weight: 600;
+}
+.numberOrder__span {
+  font-size: 10px;
+  font-weight: 400;
+}
+.orderCard__viewInfo {
+  display: flex;
+  align-items: center;
+}
+.viewInfo__price {
+  margin-top: 50px;
+}
+.viewInfo__address,
+.viewInfo__date {
+  margin-top: 10px;
+}
+.viewInfo__img {
+  width: 24px;
+  height: 24px;
+}
+.viewInfo__title {
+  font-size: 14px;
+  font-weight: 400;
+  color: #353535;
+}

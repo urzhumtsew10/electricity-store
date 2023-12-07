@@ -236,7 +236,7 @@
   align-items: center;
   justify-content: center;
   animation-name: circle-tick;
-  animation-duration: 0.8s;
+  animation-duration: 1s;
 }
 @keyframes circle-tick {
   0% {

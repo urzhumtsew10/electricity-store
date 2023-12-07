@@ -11,8 +11,11 @@ import checkmark from "../../img/checkmark.png";
 import sound from "../../audio/success.mp3";
 import { removeAllProducts } from "../../store/cart";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { setOrders } from "../../store/orders";
 
 export const OrderForm = () => {
+  const REST_API = useSelector((state) => state.modals.api);
   const dispatch = useDispatch();
   const [methodPay, setMethodPay] = useState("cash");
   const [isError, setIsError] = useState(false);
@@ -148,7 +151,14 @@ export const OrderForm = () => {
           orderData.products = cartProducts;
           dispatch(removeAllProducts());
         }
-        console.log(orderData);
+        const date = new Date();
+        const currentMonth = date.getMonth() + 1;
+        const currentDay = date.getDate();
+        const currentYear = date.getFullYear();
+        orderData.date = `${currentDay}.${currentMonth}.${currentYear}`;
+        axios
+          .post(`${REST_API}/order`, orderData)
+          .then((res) => dispatch(setOrders({ value: res.data })));
       }
       setIsSuccess(true);
       const audio = new Audio(sound);

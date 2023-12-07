@@ -9,6 +9,7 @@ import modalReducer from "./store/modals";
 import formRegisterReducer from "./store/form";
 import menuAccountReducer from "./store/menuAccount";
 import cartReducer from "./store/cart";
+import orderReducer from "./store/orders";
 import electedProductReducer from "./store/elected";
 import catalogReducer from "./store/catalog";
 import categoryReducer from "./store/categories";
@@ -26,6 +27,7 @@ const store = configureStore({
     categories: categoryReducer,
     catalog: catalogReducer,
     modals: modalReducer,
+    orders: orderReducer,
     formRegister: formRegisterReducer,
     menuAccount: menuAccountReducer,
     electedProducts: electedProductReducer,

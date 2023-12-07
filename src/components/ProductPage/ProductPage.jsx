@@ -3,7 +3,7 @@ import "../ProductPage/ProductPage.css";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { setCurrentProduct } from "../../store/products";
+import { setCurrentProduct, setProducts } from "../../store/products";
 import icon_heart from "../../img/icon-heart.svg";
 import icon_full_heart from "../../img/icon-full-heart.svg";
 import icon_arrow from "../../img/arrow.svg";
@@ -34,7 +34,13 @@ export const ProductPage = () => {
   const REST_API = useSelector((state) => state.modals.api);
 
   useEffect(() => {
-    if (products) {
+    axios.get(`${REST_API}/products`).then((res) => {
+      dispatch(setProducts({ value: res.data }));
+    });
+  }, []);
+
+  useEffect(() => {
+    if (products.length) {
       const product = products.filter((product) => product._id === id)[0];
       dispatch(
         setCurrentProduct({
@@ -50,7 +56,7 @@ export const ProductPage = () => {
         })
       );
     }
-  }, [window.location.href]);
+  }, [window.location.href, products]);
 
   const userData = JSON.parse(localStorage.getItem("userData"));
   const electedProducts = useSelector(
