@@ -17,6 +17,12 @@ import { Catalog } from "../Catalog/Catalog";
 function App() {
   const errorModal = useSelector((state) => state.modals.errorModal);
   const isActiveOrderForm = useSelector((state) => state.modals.orderForm);
+
+  const cartProducts = JSON.parse(localStorage.getItem("cartProducts"));
+  if (!cartProducts) {
+    localStorage.setItem("cartProducts", JSON.stringify([]));
+  }
+
   return (
     <div className="online-store">
       {errorModal.isActive && <ErrorModal />}
