@@ -118,6 +118,7 @@ export const Header = () => {
         return searchReg.test(productTitle);
       }
     });
+    inputSearchMobileRef.current.value = "";
     setResultSearchProducts(searchProducts);
     setIsActive(true);
   };
