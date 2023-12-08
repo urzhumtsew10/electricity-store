@@ -13,10 +13,10 @@ export const Cart = () => {
     localStorage.setItem("cartProducts", JSON.stringify(cartProducts));
   }, [cartProducts]);
 
-  // const sumProducts = cartProducts.reduce((acc, product) => {
-  //   acc += product.price * product.counter;
-  //   return acc;
-  // }, 0);
+  const sumProducts = cartProducts.reduce((acc, product) => {
+    acc += product.price * product.counter;
+    return acc;
+  }, 0);
 
   const goBackHome = () => {
     window.history.back();
@@ -47,23 +47,24 @@ export const Cart = () => {
         <p className="cartInfo__totalColumn">Total</p>
       </div>
       <div className="cartContent__products">
-        {cartProducts.map((product) => (
-          <CartProduct
-            key={product.id}
-            id={product.id}
-            img={product.img}
-            category={product.category}
-            brand={product.brand}
-            color={product.color}
-            counter={product.counter}
-            price={product.price}
-          />
-        ))}
+        {cartProducts &&
+          cartProducts.map((product) => (
+            <CartProduct
+              key={product.id}
+              id={product.id}
+              img={product.img}
+              category={product.category}
+              brand={product.brand}
+              color={product.color}
+              counter={product.counter}
+              price={product.price}
+            />
+          ))}
       </div>
       <div className="cartContent__considerTotalPrice">
         <div className="considerTotalPrice__subtotal">
           <p className="subtotal__text">Subtotal</p>
-          <p className="subtotal__total">{100}$</p>
+          <p className="subtotal__total">{sumProducts}$</p>
         </div>
         <div className="considerTotalPrice__shipping">
           <p className="shipping__text">Shipping fee</p>
@@ -71,7 +72,7 @@ export const Cart = () => {
         </div>
         <div className="considerTotalPrice__total">
           <p className="total__text">TOTAL</p>
-          <p className="total__bill">{100 + DELIVERY_COST}$</p>
+          <p className="total__bill">{sumProducts + DELIVERY_COST}$</p>
         </div>
         <button onClick={openOrderForm} className="considerTotalPrice__btn">
           Checkout
