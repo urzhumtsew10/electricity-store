@@ -226,17 +226,30 @@
     left: calc(50px + (80 - 50) * ((100vw - 320px) / (767 - 320)));
   }
   .cartProduct__title {
-    top: calc(15px + (0 - 15) * ((100vw - 320px) / (767 - 320)));
+    top: calc(15px + (40 - 15) * ((100vw - 320px) / (767 - 320)));
     left: calc(125px + (220 - 125) * ((100vw - 320px) / (767 - 320)));
     font-size: calc(14px + (16 - 14) * ((100vw - 320px) / (767 - 320)));
   }
   .cartProduct__productQuantity {
-    bottom: calc(10px + (0 - 10) * ((100vw - 320px) / (767 - 320)));
+    bottom: calc(10px + (25 - 10) * ((100vw - 320px) / (767 - 320)));
     right: calc(75px + (90 - 75) * ((100vw - 320px) / (767 - 320)));
     width: calc(100px + (120 - 100) * ((100vw - 320px) / (767 - 320)));
   }
   .cartProduct__total {
     right: calc(10px + (15 - 10) * ((100vw - 320px) / (767 - 320)));
-    bottom: calc(25px + (0 - 25) * ((100vw - 320px) / (767 - 320)));
+    bottom: calc(25px + (35 - 25) * ((100vw - 320px) / (767 - 320)));
+  }
+  .cartInfo__totalColumn {
+    right: calc(10px + (15 - 10) * ((100vw - 320px) / (767 - 320)));
+  }
+  .cartInfo__quantityColumn {
+    right: calc(115px + (140 - 115) * ((100vw - 320px) / (767 - 320)));
+  }
+  .cartInfo__productColumn {
+    left: calc(50px + (85 - 50) * ((100vw - 320px) / (767 - 320)));
+  }
+  .cartContent__considerTotalPrice {
+    right: calc(30px + (85 - 30) * ((100vw - 320px) / (767 - 320)));
+    width: calc(260px + (377 - 260) * ((100vw - 320px) / (767 - 320)));
   }
 }

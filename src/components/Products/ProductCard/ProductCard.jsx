@@ -45,7 +45,7 @@ export const ProductCard = ({
       response.then((elected) => {
         if (elected.data) {
           const userElectedProducts = elected.data.filter(
-            (product) => product.userEmail === userData.email
+            (product) => product.userEmail === userData?.email
           );
           dispatch(setElectedProducts({ value: userElectedProducts }));
         }
