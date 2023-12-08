@@ -175,7 +175,7 @@
   .viewProduct__productInfo {
     margin-top: 10px;
     width: calc(270px + (340 - 270) * ((100vw - 320px) / (767 - 320)));
-    height: calc(200px + (255 - 200) * ((100vw - 320px) / (767 - 320)));
+    height: calc(250px + (255 - 250) * ((100vw - 320px) / (767 - 320)));
   }
   .productInfo__description {
     font-size: calc(22px + (25 - 22) * ((100vw - 320px) / (767 - 320)));
