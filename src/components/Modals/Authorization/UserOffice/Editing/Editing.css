@@ -190,3 +190,12 @@
   width: 20px;
   height: 20px;
 }
+@media (max-width: 767px) {
+  .contentEditing__formEditProduct {
+    top: calc(65px + (15 - 65) * ((100vw - 320px) / (767 - 320)));
+    height: calc(310px + (360 - 310) * ((100vw - 320px) / (767 - 320)));
+  }
+  .formEditProduct__imgPreview {
+    max-width: calc(195px + (210 - 195) * ((100vw - 320px) / (767 - 320)));
+  }
+}

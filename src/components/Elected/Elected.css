@@ -40,3 +40,8 @@
   grid-template-columns: repeat(auto-fit, 230px);
   gap: 20px;
 }
+@media (max-width: 767px) {
+  .electedContent__electedProducts {
+    justify-content: center;
+  }
+}

@@ -59,3 +59,9 @@
   font-weight: 400;
   color: #353535;
 }
+@media (max-width: 767px) {
+  .ordersContent__orders {
+    grid-template-columns: repeat(1, 1fr);
+    justify-items: center;
+  }
+}
