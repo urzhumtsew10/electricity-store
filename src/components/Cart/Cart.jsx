@@ -13,10 +13,12 @@ export const Cart = () => {
     localStorage.setItem("cartProducts", JSON.stringify(cartProducts));
   }, [cartProducts]);
 
-  const sumProducts = cartProducts.reduce((acc, product) => {
-    acc += product.price * product.counter;
-    return acc;
-  }, 0);
+  const sumProducts = cartProducts
+    ? cartProducts.reduce((acc, product) => {
+        acc += product.price * product.counter;
+        return acc;
+      }, 0)
+    : 0;
 
   const goBackHome = () => {
     window.history.back();
