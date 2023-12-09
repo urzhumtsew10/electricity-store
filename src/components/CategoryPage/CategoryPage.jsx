@@ -9,7 +9,7 @@ import search from "../../img/icon-search.svg";
 import { ProductCard } from "../Products/ProductCard/ProductCard";
 import Slider from "react-slider";
 import { useSelector } from "react-redux";
-import axios from "axios";
+import icon_filter from "../../img/icon-filter.svg";
 
 export const CategoryPage = () => {
   const { category } = useParams();
@@ -17,6 +17,7 @@ export const CategoryPage = () => {
   const [filter, setFilter] = useState({});
   const data = useSelector((state) => state.products.products);
   const [priceValues, setPriceValues] = useState([10, 10000]);
+  const [isOpenFilter, setIsOpenFilter] = useState(false);
   const brandsRef = useRef(null);
   const colorsRef = useRef(null);
   const priceRef = useRef(null);
@@ -136,6 +137,14 @@ export const CategoryPage = () => {
     });
     setCategoryData({ ...categoryData, products: filteredProducts });
   };
+
+  const openFilter = () => {
+    setIsOpenFilter(true);
+  };
+  const closeFilter = () => {
+    setIsOpenFilter(false);
+  };
+
   return (
     <>
       <SliderImages
@@ -147,56 +156,72 @@ export const CategoryPage = () => {
         ]}
       />
       <div className="contentPage__categoryPage">
-        <div className="categoryPage__filterBox">
-          <div className="filterBox__searchInputDiv">
-            <input
-              ref={searchRef}
-              onChange={searchProduct}
-              className="searchInputDiv__input"
-              type="text"
+        {!isOpenFilter && (
+          <button onClick={openFilter} className="categoryPage__filterBtn">
+            Filter
+            <img className="filterBtn__img" src={icon_filter} alt="icon" />
+          </button>
+        )}
+        {isOpenFilter && (
+          <button
+            onClick={closeFilter}
+            className="categoryPage__closeFilterBtn"
+          >
+            Close Filter
+          </button>
+        )}
+        {isOpenFilter && (
+          <div className="categoryPage__filterBox">
+            <div className="filterBox__searchInputDiv">
+              <input
+                ref={searchRef}
+                onChange={searchProduct}
+                className="searchInputDiv__input"
+                type="text"
+              />
+              <img className="searchInputDiv__img" src={search} alt="icon" />
+            </div>
+            <p className="filterBox__nameFilter">Brand</p>
+            <form ref={brandsRef} className="filterBox__brandsForm filterForm">
+              {categoryData?.brands &&
+                categoryData.brands.map((brand) => (
+                  <FilterInput
+                    key={brand}
+                    productsFiltering={productsFiltering}
+                    type="brand"
+                    title={brand}
+                  />
+                ))}
+            </form>
+            <p className="filterBox__nameFilter">Color</p>
+            <form ref={colorsRef} className="filterBox__colorsForm filterForm">
+              {categoryData?.colors &&
+                categoryData.colors.map((color) => (
+                  <FilterInput
+                    key={color}
+                    productsFiltering={productsFiltering}
+                    type="color"
+                    title={color}
+                  />
+                ))}
+            </form>
+            <p className="filterBox__nameFilter">Price</p>
+            <div className="filterBox__infoPriceRange">
+              <p className="infoPriceRange__minValue">{priceValues[0]}$</p>
+              <p className="infoPriceRange__line">-</p>
+              <p className="infoPriceRange__maxValue">{priceValues[1]}$</p>
+            </div>
+            <Slider
+              className="filterBox__priceSlider"
+              onChange={productsFiltering}
+              ref={priceRef}
+              value={priceValues}
+              min={0}
+              max={10000}
+              step={10}
             />
-            <img className="searchInputDiv__img" src={search} alt="icon" />
           </div>
-          <p className="filterBox__nameFilter">Brand</p>
-          <form ref={brandsRef} className="filterBox__brandsForm filterForm">
-            {categoryData?.brands &&
-              categoryData.brands.map((brand) => (
-                <FilterInput
-                  key={brand}
-                  productsFiltering={productsFiltering}
-                  type="brand"
-                  title={brand}
-                />
-              ))}
-          </form>
-          <p className="filterBox__nameFilter">Color</p>
-          <form ref={colorsRef} className="filterBox__colorsForm filterForm">
-            {categoryData?.colors &&
-              categoryData.colors.map((color) => (
-                <FilterInput
-                  key={color}
-                  productsFiltering={productsFiltering}
-                  type="color"
-                  title={color}
-                />
-              ))}
-          </form>
-          <p className="filterBox__nameFilter">Price</p>
-          <div className="filterBox__infoPriceRange">
-            <p className="infoPriceRange__minValue">{priceValues[0]}$</p>
-            <p className="infoPriceRange__line">-</p>
-            <p className="infoPriceRange__maxValue">{priceValues[1]}$</p>
-          </div>
-          <Slider
-            className="filterBox__priceSlider"
-            onChange={productsFiltering}
-            ref={priceRef}
-            value={priceValues}
-            min={0}
-            max={10000}
-            step={10}
-          />
-        </div>
+        )}
         <div className="categoryPage__productsFiltersBlock">
           <div className="categoryPage__products">
             {categoryData?.products &&
