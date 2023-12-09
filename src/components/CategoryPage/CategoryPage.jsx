@@ -28,6 +28,10 @@ export const CategoryPage = () => {
   const catalogFilter = useSelector((state) => state.catalog.catalogFilter);
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
     if (data) {
       const products = data.filter(
         (product) => product.category === correctCategory
@@ -145,6 +149,8 @@ export const CategoryPage = () => {
     setIsOpenFilter(false);
   };
 
+  const addClassFilterBox = isOpenFilter ? "active" : "";
+
   return (
     <>
       <SliderImages
@@ -170,58 +176,56 @@ export const CategoryPage = () => {
             Close Filter
           </button>
         )}
-        {isOpenFilter && (
-          <div className="categoryPage__filterBox">
-            <div className="filterBox__searchInputDiv">
-              <input
-                ref={searchRef}
-                onChange={searchProduct}
-                className="searchInputDiv__input"
-                type="text"
-              />
-              <img className="searchInputDiv__img" src={search} alt="icon" />
-            </div>
-            <p className="filterBox__nameFilter">Brand</p>
-            <form ref={brandsRef} className="filterBox__brandsForm filterForm">
-              {categoryData?.brands &&
-                categoryData.brands.map((brand) => (
-                  <FilterInput
-                    key={brand}
-                    productsFiltering={productsFiltering}
-                    type="brand"
-                    title={brand}
-                  />
-                ))}
-            </form>
-            <p className="filterBox__nameFilter">Color</p>
-            <form ref={colorsRef} className="filterBox__colorsForm filterForm">
-              {categoryData?.colors &&
-                categoryData.colors.map((color) => (
-                  <FilterInput
-                    key={color}
-                    productsFiltering={productsFiltering}
-                    type="color"
-                    title={color}
-                  />
-                ))}
-            </form>
-            <p className="filterBox__nameFilter">Price</p>
-            <div className="filterBox__infoPriceRange">
-              <p className="infoPriceRange__minValue">{priceValues[0]}$</p>
-              <p className="infoPriceRange__line">-</p>
-              <p className="infoPriceRange__maxValue">{priceValues[1]}$</p>
-            </div>
-            <Slider
-              className="filterBox__priceSlider"
-              onChange={productsFiltering}
-              ref={priceRef}
-              value={priceValues}
-              min={0}
-              max={10000}
-              step={10}
+        <div className={`categoryPage__filterBox ${addClassFilterBox}`}>
+          <div className="filterBox__searchInputDiv">
+            <input
+              ref={searchRef}
+              onChange={searchProduct}
+              className="searchInputDiv__input"
+              type="text"
             />
+            <img className="searchInputDiv__img" src={search} alt="icon" />
           </div>
-        )}
+          <p className="filterBox__nameFilter">Brand</p>
+          <form ref={brandsRef} className="filterBox__brandsForm filterForm">
+            {categoryData?.brands &&
+              categoryData.brands.map((brand) => (
+                <FilterInput
+                  key={brand}
+                  productsFiltering={productsFiltering}
+                  type="brand"
+                  title={brand}
+                />
+              ))}
+          </form>
+          <p className="filterBox__nameFilter">Color</p>
+          <form ref={colorsRef} className="filterBox__colorsForm filterForm">
+            {categoryData?.colors &&
+              categoryData.colors.map((color) => (
+                <FilterInput
+                  key={color}
+                  productsFiltering={productsFiltering}
+                  type="color"
+                  title={color}
+                />
+              ))}
+          </form>
+          <p className="filterBox__nameFilter">Price</p>
+          <div className="filterBox__infoPriceRange">
+            <p className="infoPriceRange__minValue">{priceValues[0]}$</p>
+            <p className="infoPriceRange__line">-</p>
+            <p className="infoPriceRange__maxValue">{priceValues[1]}$</p>
+          </div>
+          <Slider
+            className="filterBox__priceSlider"
+            onChange={productsFiltering}
+            ref={priceRef}
+            value={priceValues}
+            min={0}
+            max={10000}
+            step={10}
+          />
+        </div>
         <div className="categoryPage__productsFiltersBlock">
           <div className="categoryPage__products">
             {categoryData?.products &&

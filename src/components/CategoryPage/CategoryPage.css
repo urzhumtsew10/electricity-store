@@ -165,4 +165,10 @@
     font-size: 16px;
     font-weight: 500;
   }
+  .categoryPage__filterBox {
+    display: none;
+  }
+  .categoryPage__filterBox.active {
+    display: block;
+  }
 }
