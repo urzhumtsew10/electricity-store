@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { ProductCard } from "../Products/ProductCard/ProductCard";
 import "../Products/Products.css";
 import { useDispatch, useSelector } from "react-redux";
-import { setProducts } from "../../store/products";
+import { setIsSeeMore, setProducts } from "../../store/products";
 import axios from "axios";
 
 export const Products = () => {
   const products = useSelector((state) => state.products.products);
   const REST_API = useSelector((state) => state.modals.api);
+  const isSeeMore = useSelector((state) => state.products.isSeeMore);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -16,18 +17,16 @@ export const Products = () => {
     });
   }, []);
 
-  const [isActiveSeeMore, setActiveSeeMore] = useState(true);
-
   const showMoreProducts = () => {
-    setActiveSeeMore(false);
+    dispatch(setIsSeeMore({ value: false }));
   };
 
   const rollUpProducts = () => {
-    setActiveSeeMore(true);
+    dispatch(setIsSeeMore({ value: true }));
   };
 
   const productsLength =
-    products && isActiveSeeMore ? products.slice(0, 15) : products;
+    products && isSeeMore ? products.slice(0, 15) : products;
   return (
     <div className="contentProducts">
       <h2 className="contentProducts__title">Products</h2>
@@ -48,12 +47,12 @@ export const Products = () => {
             )
           )}
       </div>
-      {isActiveSeeMore && (
+      {isSeeMore && (
         <div onClick={showMoreProducts} className="contentProducts__btn">
           See more
         </div>
       )}
-      {!isActiveSeeMore && (
+      {!isSeeMore && (
         <div onClick={rollUpProducts} className="contentProducts__btn">
           Rool Up
         </div>

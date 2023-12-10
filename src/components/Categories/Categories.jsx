@@ -4,11 +4,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setCategories } from "../../store/categories";
+import { setIsSeeMore } from "../../store/categories";
 
 export const Categories = () => {
   const REST_API = useSelector((state) => state.modals.api);
-  const [isActiveSeeMore, setActiveSeeMore] = useState(true);
   const products = useSelector((state) => state.products.products);
+  const isSeeMore = useSelector((state) => state.categories.isSeeMore);
   const categories = useSelector((state) => state.categories.categories);
   const dispatch = useDispatch();
 
@@ -39,11 +40,11 @@ export const Categories = () => {
   };
 
   const showMoreCategories = () => {
-    setActiveSeeMore(false);
+    dispatch(setIsSeeMore({ value: false }));
   };
 
   const roolUpCategories = () => {
-    setActiveSeeMore(true);
+    dispatch(setIsSeeMore({ value: true }));
   };
 
   useEffect(() => {
@@ -74,7 +75,7 @@ export const Categories = () => {
   }, [products]);
 
   const categoriesData =
-    categories && isActiveSeeMore ? categories.slice(0, 8) : categories;
+    categories && isSeeMore ? categories.slice(0, 8) : categories;
 
   return (
     <div className="contentCategory">
@@ -85,12 +86,12 @@ export const Categories = () => {
             <CategoryCard key={_id} title={title} img={img} />
           ))}
       </div>
-      {isActiveSeeMore && (
+      {isSeeMore && (
         <button onClick={showMoreCategories} className="contentCategories__btn">
           See more
         </button>
       )}
-      {!isActiveSeeMore && (
+      {!isSeeMore && (
         <button onClick={roolUpCategories} className="contentCategories__btn">
           Roll Up
         </button>
