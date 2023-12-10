@@ -309,4 +309,19 @@
   .form__input {
     width: calc(300px + (330 - 300) * ((100vw - 767px) / (1530 - 767)));
   }
+  .orderForm__successMessage {
+    width: calc(280px + (475 - 280) * ((100vw - 320px) / (767 - 320)));
+    height: calc(455px + (550 - 455) * ((100vw - 320px) / (767 - 320)));
+  }
+  .successMessage__circle {
+    margin-top: calc(30px + (40 - 30) * ((100vw - 320px) / (767 - 320)));
+    width: calc(150px + (170 - 150) * ((100vw - 320px) / (767 - 320)));
+    height: calc(150px + (170 - 150) * ((100vw - 320px) / (767 - 320)));
+  }
+  .successMessage__title {
+    margin-top: calc(30px + (50 - 30) * ((100vw - 320px) / (767 - 320)));
+  }
+  .successMessage__text {
+    margin-top: calc(30px + (44 - 30) * ((100vw - 320px) / (767 - 320)));
+  }
 }
