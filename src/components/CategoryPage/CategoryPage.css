@@ -167,6 +167,8 @@
   }
   .categoryPage__filterBox {
     display: none;
+    height: auto;
+    padding-bottom: 60px;
   }
   .categoryPage__filterBox.active {
     display: block;

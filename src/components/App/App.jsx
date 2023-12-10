@@ -8,15 +8,31 @@ import { Authorization } from "../Modals/Authorization/Authorization";
 import { Elected } from "../Elected/Elected";
 import { ProductPage } from "../ProductPage/ProductPage";
 import { ErrorModal } from "../Modals/ErrorModal/ErrorModal";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CategoryPage } from "../CategoryPage/CategoryPage";
 import { OrderForm } from "../OrderForm/OrderForm";
 import { CategoriesMobile } from "../CategoriesMobile/CategoriesMobile";
 import { Catalog } from "../Catalog/Catalog";
+import { LoadingModal } from "../Modals/LoadingModal/LoadingModal";
+import { useEffect } from "react";
+import { setIsLoading } from "../../store/modals";
 
 function App() {
+  const dispatch = useDispatch();
   const errorModal = useSelector((state) => state.modals.errorModal);
   const isActiveOrderForm = useSelector((state) => state.modals.orderForm);
+  const isLoading = useSelector((state) => state.modals.isLoading);
+
+  const products = useSelector((state) => state.products.products);
+  const categories = useSelector((state) => state.categories.categories);
+
+  useEffect(() => {
+    if (products.length || categories.length) {
+      dispatch(setIsLoading({ value: false }));
+    } else {
+      dispatch(setIsLoading({ value: true }));
+    }
+  }, [products, categories]);
 
   const cartProducts = JSON.parse(localStorage.getItem("cartProducts"));
   if (!cartProducts) {
@@ -27,6 +43,7 @@ function App() {
     <div className="online-store">
       {errorModal.isActive && <ErrorModal />}
       {isActiveOrderForm && <OrderForm />}
+      {isLoading && <LoadingModal />}
       <Header />
       <Authorization />
       <div className="contentPage">

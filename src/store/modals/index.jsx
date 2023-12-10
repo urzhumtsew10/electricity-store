@@ -6,6 +6,7 @@ const initialState = {
     { title: "Add New", isActive: false },
     { title: "Search", isActive: true },
   ],
+  isLoading: false,
   authActive: false,
   electedActive: false,
   cartActive: false,
@@ -20,6 +21,9 @@ const modalsSlice = createSlice({
   name: "modals",
   initialState,
   reducers: {
+    setIsLoading: (state, action) => {
+      return { ...state, isLoading: action.payload.value };
+    },
     setOrderForm: (state, action) => {
       return { ...state, orderForm: action.payload.isActive };
     },
@@ -63,6 +67,7 @@ const modalsSlice = createSlice({
 });
 
 export const {
+  setIsLoading,
   setOrderForm,
   setErrorModal,
   setActiveEditList,

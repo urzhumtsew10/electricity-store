@@ -281,3 +281,18 @@
   border: 1px solid #609966;
   color: #609966;
 }
+@media (max-width: 1530px) {
+  .orderForm__content {
+    width: calc(410px + (610 - 410) * ((100vw - 767px) / (1530 - 767)));
+    height: calc(620px + (630 - 620) * ((100vw - 767px) / (1530 - 767)));
+  }
+  .orderForm__errorDiv {
+    width: calc(290px + (348 - 290) * ((100vw - 767px) / (1530 - 767)));
+  }
+  .form__input {
+    width: calc(330px + (375 - 330) * ((100vw - 767px) / (1530 - 767)));
+  }
+  .orderForm__bankCard {
+    width: calc(75% + (55 - 75) * ((100vw - 767px) / (1530 - 767)));
+  }
+}

@@ -1,0 +1,25 @@
+.loadingModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #fff;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.loadingModal__title {
+  margin: 75px 0 150px 0;
+  text-align: center;
+  font-size: 40px;
+  font-weight: 500;
+}
+@media (max-width: 1530px) {
+  .loadingModal__title {
+    margin-top: calc(65px + (75 - 65) * ((100vw - 320px) / (1530 - 320)));
+    margin-bottom: calc(100px + (150 - 100) * ((100vw - 767px) / (1530 - 767)));
+    font-size: calc(30px + (40 - 30) * ((100vw - 767px) / (1530 - 767)));
+  }
+}
