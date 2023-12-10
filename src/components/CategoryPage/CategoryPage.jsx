@@ -10,6 +10,7 @@ import { ProductCard } from "../Products/ProductCard/ProductCard";
 import Slider from "react-slider";
 import { useSelector } from "react-redux";
 import icon_filter from "../../img/icon-filter.svg";
+import icon_arrow from "../../img/arrow.svg";
 
 export const CategoryPage = () => {
   const { category } = useParams();
@@ -29,7 +30,7 @@ export const CategoryPage = () => {
 
   useEffect(() => {
     window.scrollTo({
-      top: 0,
+      top: 500,
       behavior: "smooth",
     });
     if (data) {
@@ -90,6 +91,10 @@ export const CategoryPage = () => {
       setCategoryData({ ...categoryData, products: filteredProducts });
     }
   }, [filter]);
+
+  const goBackHome = () => {
+    window.history.back();
+  };
 
   const updateFilter = (nodes) => {
     const arrayInput = [];
@@ -162,6 +167,15 @@ export const CategoryPage = () => {
         ]}
       />
       <div className="contentPage__categoryPage">
+        <img
+          onClick={goBackHome}
+          className="cotegoryPage__arrow"
+          src={icon_arrow}
+          alt="arrow"
+        />
+        <p onClick={goBackHome} className="categoryPage__text">
+          Back
+        </p>
         {!isOpenFilter && (
           <button onClick={openFilter} className="categoryPage__filterBtn">
             Filter

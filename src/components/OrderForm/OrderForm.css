@@ -296,3 +296,17 @@
     width: calc(75% + (55 - 75) * ((100vw - 767px) / (1530 - 767)));
   }
 }
+.inputCard {
+  display: none;
+}
+@media (max-width: 767px) {
+  .orderForm__bankCard {
+    display: none;
+  }
+  .inputCard {
+    display: block;
+  }
+  .form__input {
+    width: calc(300px + (330 - 300) * ((100vw - 767px) / (1530 - 767)));
+  }
+}

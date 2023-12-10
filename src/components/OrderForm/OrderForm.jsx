@@ -29,6 +29,7 @@ export const OrderForm = () => {
   const inputNameRef = useRef(null);
   const inputEmailRef = useRef(null);
   const inputAddressRef = useRef(null);
+  const inputCardRef = useRef(null);
 
   const closeOrderForm = () => {
     dispatch(setOrderForm({ isActive: false }));
@@ -108,11 +109,16 @@ export const OrderForm = () => {
   const tryAcceptOrder = () => {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     const numberCardArray = [];
-    if (methodPay === "card") {
+    if (methodPay === "card" && window.innerWidth > 767) {
       for (let i = 0; i < numberCardRef.current.children.length; i++) {
         if (numberCardRef.current.children[i].value) {
           numberCardArray.push(numberCardRef.current.children[i].value);
         }
+      }
+    }
+    if (methodPay === "card" && window.innerWidth <= 767) {
+      for (let i = 0; i < inputCardRef.current.value.length; i++) {
+        numberCardArray.push(inputCardRef.current.value[i]);
       }
     }
     const creditCardValidation =
@@ -219,6 +225,14 @@ export const OrderForm = () => {
               type="text"
               placeholder="Address (Ex. 10 Grove Road London)"
             />
+            {methodPay === "card" && (
+              <input
+                ref={inputCardRef}
+                className="form__input inputCard"
+                type="number"
+                placeholder="Credit card"
+              />
+            )}
           </form>
           <div className="orderFrom__methodPay">
             <div className={`methodPay__circle ${methodPay}`}></div>
