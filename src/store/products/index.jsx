@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   products: [],
   currentProduct: {},
-  isSeeMore: false,
+  isSeeMore: true,
 };
 
 const productsSlice = createSlice({

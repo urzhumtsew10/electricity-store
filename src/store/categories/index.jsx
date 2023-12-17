@@ -2,7 +2,7 @@ const { createSlice } = require("@reduxjs/toolkit");
 
 const initialState = {
   categories: [],
-  isSeeMore: false,
+  isSeeMore: true,
 };
 
 const categoriesSlice = createSlice({
